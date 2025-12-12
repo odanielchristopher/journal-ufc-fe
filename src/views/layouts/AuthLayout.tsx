@@ -24,7 +24,7 @@ export function AuthLayout() {
           }}
         />
 
-        <div className="w-full max-w-[504px] px-6">
+        <div className="w-full max-w-126 px-6">
           <Outlet />
         </div>
       </div>

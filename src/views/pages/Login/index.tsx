@@ -28,7 +28,7 @@ export function Login() {
         </p>
       </header>
 
-      <form onSubmit={handleSubmit} className="mt-[60px] flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="mt-15 flex flex-col gap-4">
         <Input
           placeholder="E-mail"
           error={errors.email?.message}

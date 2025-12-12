@@ -21,7 +21,7 @@ export function Register() {
       </header>
 
       <FormProvider {...form}>
-        <form onSubmit={handleSubmit} className="min-h-[500px]">
+        <form onSubmit={handleSubmit} className="min-h-125">
           <Stepper
             initialStep={0}
             hasHeader

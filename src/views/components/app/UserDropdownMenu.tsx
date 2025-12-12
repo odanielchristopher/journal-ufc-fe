@@ -60,7 +60,7 @@ export function UserDropdownMenu() {
             </AvatarFallback>
           </Avatar>
 
-          <div className="mt-3 flex max-w-[200px] flex-col items-center">
+          <div className="mt-3 flex max-w-50 flex-col items-center">
             <strong className="line-clamp-1 text-sm">
               {user.firstName} {user.lastName}
             </strong>

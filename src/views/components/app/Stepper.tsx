@@ -1,8 +1,8 @@
-import { StepperContext, StepperProvider } from '@app/contexts/StepperContext';
-import { useStepper } from '@app/hooks/useStepper';
 import { AnimatePresence, motion } from 'motion/react';
 import React from 'react';
 
+import { StepperContext, StepperProvider } from '@app/contexts/StepperContext';
+import { useStepper } from '@app/hooks/useStepper';
 import { cn } from '@app/lib/utils';
 import { Button } from '@views/components/ui/Button';
 

@@ -1,5 +1,6 @@
-import { StepperContext } from '@app/contexts/StepperContext';
 import { useContext } from 'react';
+
+import { StepperContext } from '@app/contexts/StepperContext';
 
 export function useStepper() {
   const context = useContext(StepperContext);

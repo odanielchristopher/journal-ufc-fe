@@ -8,8 +8,7 @@ class UsersService {
   constructor(private readonly httpClient: AxiosInstance) {}
 
   me = async (): Promise<UsersService.MeOutput> => {
-    const { data } =
-      await this.httpClient.get<UsersService.MeOutput>('/users/me');
+    const { data } = await this.httpClient.get<UsersService.MeOutput>('/me');
 
     return data;
   };

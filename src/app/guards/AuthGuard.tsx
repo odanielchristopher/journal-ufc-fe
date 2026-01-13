@@ -4,19 +4,15 @@ import { routes } from '@app/Router/routes';
 
 import { useAuth } from '../hooks/useAuth';
 
-interface IAuthGuardProps {
+interface AuthGuardProps {
   isPrivate: boolean;
 }
 
-export function AuthGuard({ isPrivate }: IAuthGuardProps) {
+export function AuthGuard({ isPrivate }: AuthGuardProps) {
   const { signedIn } = useAuth();
 
   if (!signedIn && isPrivate) {
     return <Navigate to={routes.login} replace />;
-  }
-
-  if (signedIn && !isPrivate) {
-    return <Navigate to={routes.dashboard} replace />;
   }
 
   return <Outlet />;

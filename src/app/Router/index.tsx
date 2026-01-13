@@ -1,38 +1,24 @@
-import { AnimatePresence } from 'motion/react';
-import { Suspense } from 'react';
-import { Navigate, Route, Routes } from 'react-router';
+import { Route, Routes } from 'react-router';
 
 import { AuthGuard } from '@app/guards/AuthGuard';
-import { lazyLoad } from '@app/utils/lazyLoad';
-import { LaunchScreen } from '@views/components/app/LaunchScreen';
+import { Dashboard } from '@views/pages/Dashboard';
+import { Home } from '@views/pages/Home';
+import { Login } from '@views/pages/Login';
 
 import { routes } from './routes';
 
-const { AuthLayout } = lazyLoad(() => import('@views/layouts/AuthLayout'));
-
-const { Dashboard } = lazyLoad(() => import('@views/pages/Dashboard'));
-const { Login } = lazyLoad(() => import('@views/pages/Login'));
-const { Register } = lazyLoad(() => import('@views/pages/Register'));
-
 export function Router() {
   return (
-    <AnimatePresence mode="wait">
-      <Suspense fallback={<LaunchScreen />}>
-        <Routes>
-          <Route index element={<Navigate to={routes.login} />} />
+    <Routes>
+      <Route index element={<Home />} />
 
-          <Route element={<AuthGuard isPrivate />}>
-            <Route path={routes.dashboard} element={<Dashboard />} />
-          </Route>
+      <Route element={<AuthGuard isPrivate />}>
+        <Route path={routes.dashboard} element={<Dashboard />} />
+      </Route>
 
-          <Route element={<AuthGuard isPrivate={false} />}>
-            <Route element={<AuthLayout />}>
-              <Route path={routes.login} element={<Login />} />
-              <Route path={routes.register} element={<Register />} />
-            </Route>
-          </Route>
-        </Routes>
-      </Suspense>
-    </AnimatePresence>
+      <Route element={<AuthGuard isPrivate={false} />}>
+        <Route path={routes.login} element={<Login />} />
+      </Route>
+    </Routes>
   );
 }

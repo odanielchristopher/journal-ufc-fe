@@ -12,7 +12,7 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-primary text-primary-foreground shadow-xs hover:bg-primary/90',
+          'bg-teal-700 text-primary-foreground shadow-xs hover:bg-teal-700/90',
         destructive:
           'bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
         outline:
@@ -24,9 +24,9 @@ export const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
-        default: 'h-12 px-4 py-2 has-[>svg]:px-3 rounded-full',
-        sm: 'h-10 rounded-full gap-1.5 px-3 has-[>svg]:px-2.5',
-        lg: 'h-[52px] rounded-full px-6 has-[>svg]:px-4',
+        default: 'h-12 px-4 py-2 has-[>svg]:px-3',
+        sm: 'h-10 gap-1.5 px-3 has-[>svg]:px-2.5',
+        lg: 'h-[52px] px-6 has-[>svg]:px-4',
         icon: 'size-9',
       },
     },
@@ -39,7 +39,7 @@ export const buttonVariants = cva(
 
 export function Button({
   className,
-  variant,
+  variant = 'default',
   size,
   asChild = false,
   isLoading,
@@ -72,7 +72,14 @@ export function Button({
       {...props}
     >
       {!isLoading && children}
-      {isLoading && <Spinner className="h-6 w-6" />}
+      {isLoading && (
+        <Spinner
+          className={cn(
+            'h-6 w-6',
+            variant === 'default' && 'fill-teal-700 text-white',
+          )}
+        />
+      )}
     </button>
   );
 }

@@ -1,6 +1,7 @@
 import { LogInIcon } from 'lucide-react';
 import { Link } from 'react-router';
 
+import { useAuth } from '@app/hooks/useAuth';
 import { routes } from '@app/Router/routes';
 import { Button } from '@views/components/ui/Button';
 
@@ -13,21 +14,31 @@ export function Header({ className }: { className: string }) {
 }
 
 export function HeaderContent() {
+  const { signedIn } = useAuth();
+
   return (
     <div className="mx-auto flex w-full max-w-7xl justify-between px-8 py-4">
       <Logo />
 
-      <Button
-        type="button"
-        variant="outline"
-        className="border-teal-700 bg-white text-teal-700 hover:bg-gray-100 hover:text-teal-700"
-        asChild
-      >
-        <Link to={routes.login}>
-          <LogInIcon className="size-5" />
-          Entrar
-        </Link>
-      </Button>
+      {!signedIn && (
+        <Button
+          type="button"
+          variant="outline"
+          className="border-teal-700 bg-white text-teal-700 hover:bg-gray-100 hover:text-teal-700"
+          asChild
+        >
+          <Link to={routes.login}>
+            <LogInIcon className="size-5" />
+            Entrar
+          </Link>
+        </Button>
+      )}
+
+      {signedIn && (
+        <Button type="button">
+          <Link to={routes.dashboard}>Ir para o painel</Link>
+        </Button>
+      )}
     </div>
   );
 }

@@ -1,40 +1,23 @@
-import { LogInIcon } from 'lucide-react';
-import { Link } from 'react-router';
+import { NEWS } from '@app/mocks/news';
 
-import { routes } from '@app/Router/routes';
-import { Button } from '@views/components/ui/Button';
+import { Footer } from './components/Footer';
+import { Header } from './components/Header';
+import { Section } from './components/Section';
 
 export function Home() {
   return (
-    <div>
-      <header className="flex w-full items-center border-b-2 bg-white shadow-lg">
-        <div className="mx-auto flex w-full max-w-7xl justify-between px-8 py-4">
-          <div className="flex items-center justify-center gap-4">
-            <span className="flex size-13 items-center justify-center rounded-md bg-teal-700 text-xl font-bold text-white">
-              UFC
-            </span>
+    <div className="flex min-h-screen w-full flex-col">
+      <Header className="flex w-full items-center border-b-2 bg-white shadow-lg" />
 
-            <div className="flex flex-col">
-              <strong className="font-bold">Jornal UFC</strong>
-              <small className="text-muted-foreground text-base leading-4">
-                Campus de Quixadá
-              </small>
-            </div>
-          </div>
+      <main className="mx-auto mb-8 flex w-full max-w-7xl flex-1 flex-col gap-10 p-8">
+        <Section news={NEWS} variant="emphasis" />
 
-          <Button
-            type="button"
-            variant="outline"
-            className="border-teal-700 bg-white text-teal-700 hover:bg-gray-100 hover:text-teal-700"
-            asChild
-          >
-            <Link to={routes.login}>
-              <LogInIcon className="size-5" />
-              Entrar
-            </Link>
-          </Button>
-        </div>
-      </header>
+        <Section news={NEWS} title="Pesquisa e Inovação" />
+
+        <Section news={NEWS} title="Extensão Universitária" />
+      </main>
+
+      <Footer className="bg-gray-800 py-10 text-white" />
     </div>
   );
 }

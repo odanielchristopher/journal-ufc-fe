@@ -1,0 +1,11 @@
+{
+  "me": {
+    "id": "random-id",
+    "name": "Joãozinho",
+    "email": "joao@mail.com"
+  },
+  "sign-in": {
+    "accessToken": "random-access-token",
+    "refreshToken": "random-refresh-token"
+  }
+}

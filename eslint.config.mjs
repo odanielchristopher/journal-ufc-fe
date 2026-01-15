@@ -10,7 +10,6 @@ import pluginReact from 'eslint-plugin-react';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-
 export default defineConfig([
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,tsx}'],
@@ -66,7 +65,7 @@ export default defineConfig([
           selector: 'interface',
           format: ['PascalCase'],
           custom: {
-            regex: 'I[A-Z]',
+            regex: '^(I[A-Z][A-Za-z0-9]*|[A-Z][A-Za-z0-9]*Props)$',
             match: true,
           },
         },

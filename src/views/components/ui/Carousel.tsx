@@ -12,9 +12,13 @@ type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
 type CarouselOptions = UseCarouselParameters[0];
 type CarouselPlugin = UseCarouselParameters[1];
+type CarouselUIOptions = {
+  showDots?: boolean;
+  dotsClassName?: CarouselDotsProps['className'];
+};
 
 type CarouselProps = {
-  opts?: CarouselOptions;
+  opts?: CarouselOptions & CarouselUIOptions;
   plugins?: CarouselPlugin;
   orientation?: 'horizontal' | 'vertical';
   setApi?: (api: CarouselApi) => void;
@@ -50,9 +54,11 @@ function Carousel({
   children,
   ...props
 }: React.ComponentProps<'div'> & CarouselProps) {
+  const { showDots, dotsClassName, ...emblaOpts } = opts ?? {};
+
   const [carouselRef, api] = useEmblaCarousel(
     {
-      ...opts,
+      ...emblaOpts,
       axis: orientation === 'horizontal' ? 'x' : 'y',
     },
     plugins,
@@ -126,6 +132,8 @@ function Carousel({
         {...props}
       >
         {children}
+
+        {showDots && <CarouselDots api={api} className={dotsClassName} />}
       </div>
     </CarouselContext.Provider>
   );
@@ -230,9 +238,104 @@ function CarouselNext({
   );
 }
 
+interface CarouselDotsProps {
+  api: any | null;
+  className?:
+    | string
+    | {
+        container?: string;
+        dot?: string;
+        activeDot?: string;
+      };
+}
+
+function CarouselDots({ api, className }: CarouselDotsProps) {
+  const [current, setCurrent] = React.useState(0);
+  const [count, setCount] = React.useState(0);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (!api) return;
+
+    const onSelect = () => setCurrent(api.selectedScrollSnap());
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap());
+
+    api.on('select', onSelect);
+    return () => api.off('select', onSelect);
+  }, [api]);
+
+  const { start, end } = React.useMemo(
+    () => getVisibleDots(count, current, 5),
+    [count, current],
+  );
+
+  if (!api || count <= 1) return null;
+
+  return (
+    <div
+      ref={containerRef}
+      className={cn(
+        'mt-4 flex items-center justify-center gap-2 overflow-hidden',
+        typeof className === 'string' ? className : className?.container,
+      )}
+    >
+      {Array.from({ length: end - start + 1 }).map((_, i) => {
+        const index = start + i;
+        const isActive = index === current;
+
+        return (
+          <button
+            key={index}
+            data-dot-index={index}
+            onClick={() => api.scrollTo(index)}
+            aria-label={`Ir para slide ${index + 1}`}
+            className={cn(
+              'h-2 w-2 shrink-0 rounded-full transition-all duration-300',
+              isActive
+                ? 'bg-primary w-4'
+                : 'bg-muted-foreground/30 hover:bg-muted-foreground/50',
+              typeof className !== 'string' && className?.dot,
+              typeof className !== 'string' && isActive && className?.activeDot,
+            )}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+function getVisibleDots(total: number, current: number, maxVisible = 5) {
+  if (total <= maxVisible) {
+    return {
+      start: 0,
+      end: total - 1,
+    };
+  }
+
+  const middle = Math.floor(maxVisible / 2);
+
+  let start = current - middle;
+  let end = current + middle;
+
+  if (start < 0) {
+    start = 0;
+    end = maxVisible - 1;
+  }
+
+  if (end >= total) {
+    end = total - 1;
+    start = total - maxVisible;
+  }
+
+  return { start, end };
+}
+
 export {
   Carousel,
   CarouselContent,
+  CarouselDots,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,

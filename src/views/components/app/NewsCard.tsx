@@ -3,6 +3,7 @@ import { CalendarIcon, UserIcon } from 'lucide-react';
 import type { INews } from '@app/entities/News';
 import { useIsMobile } from '@app/hooks/useIsMobile';
 import { cn } from '@app/lib/utils';
+import { capitalizeFirstLetter } from '@app/utils/capitalizeFirstLetter';
 import { formatDate } from '@app/utils/formatDate';
 import { Button } from '@views/components/ui/Button';
 
@@ -48,7 +49,7 @@ export function EmphasisCard({
         />
 
         <span className="absolute top-3 left-3 rounded-sm bg-teal-600 px-5 py-2 font-semibold text-white">
-          {tag.name}
+          {capitalizeFirstLetter(tag.name)}
         </span>
       </div>
 
@@ -94,7 +95,7 @@ export function DefaultCard({ news, className }: NewsCardProps) {
         />
 
         <span className="absolute top-3 left-3 rounded-sm bg-teal-600 px-5 py-2 font-semibold text-white">
-          {tag.name}
+          {capitalizeFirstLetter(tag.name)}
         </span>
       </div>
 

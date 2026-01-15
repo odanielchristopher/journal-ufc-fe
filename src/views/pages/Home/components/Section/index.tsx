@@ -1,5 +1,6 @@
 import type { INews } from '@app/entities/News';
 import { cn } from '@app/lib/utils';
+import { NewsCard, type NewsCardProps } from '@views/components/app/NewsCard';
 import {
   Carousel,
   CarouselContent,
@@ -8,19 +9,30 @@ import {
   CarouselPrevious,
 } from '@views/components/ui/Carousel';
 
-import { NewsCard, type NewsCardProps } from './NewsCard';
+import { SectionSkeleton } from './SectionSkeleton';
 
 interface SectionProps {
   news: INews[];
   title?: string;
   variant?: NewsCardProps['variant'];
+  isLoading?: boolean;
 }
 
-export function Section({ news, variant, title }: SectionProps) {
+export function Section({ news, variant, title, isLoading }: SectionProps) {
+  if (isLoading) {
+    return <SectionSkeleton title={title} variant={variant} />;
+  }
+
+  if (news.length < 1) return null;
+
   return (
     <Carousel
       opts={{
         align: 'start',
+        showDots: variant === 'emphasis',
+        dotsClassName: {
+          activeDot: 'bg-teal-700',
+        },
       }}
     >
       {title && (

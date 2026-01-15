@@ -29,7 +29,7 @@ export function useNews(input: NewsService.GetAllParams = {}) {
   };
 
   data?.forEach((news) =>
-    map[(news.tag.name as keyof typeof map) ?? 'outros'].data.push(news),
+    map[(news.tag as keyof typeof map) ?? 'outros'].data.push(news),
   );
 
   return {

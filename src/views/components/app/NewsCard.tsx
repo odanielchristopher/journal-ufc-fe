@@ -49,7 +49,7 @@ export function EmphasisCard({
         />
 
         <span className="absolute top-3 left-3 rounded-sm bg-teal-600 px-5 py-2 font-semibold text-white">
-          {capitalizeFirstLetter(tag.name)}
+          {capitalizeFirstLetter(tag)}
         </span>
       </div>
 
@@ -95,7 +95,7 @@ export function DefaultCard({ news, className }: NewsCardProps) {
         />
 
         <span className="absolute top-3 left-3 rounded-sm bg-teal-600 px-5 py-2 font-semibold text-white">
-          {capitalizeFirstLetter(tag.name)}
+          {capitalizeFirstLetter(tag)}
         </span>
       </div>
 

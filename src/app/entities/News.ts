@@ -6,8 +6,5 @@ export interface INews {
   content?: string;
   publicationDate: string;
   editor: string;
-  tag: {
-    id: string;
-    name: string;
-  };
+  tag: string;
 }

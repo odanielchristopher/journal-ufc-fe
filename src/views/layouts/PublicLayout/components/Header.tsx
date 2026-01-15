@@ -17,8 +17,10 @@ export function HeaderContent() {
   const { signedIn } = useAuth();
 
   return (
-    <div className="mx-auto flex w-full max-w-7xl justify-between px-8 py-4">
-      <Logo />
+    <div className="mx-auto flex w-full max-w-7xl justify-between py-4">
+      <Link to={routes.home}>
+        <Logo />
+      </Link>
 
       {!signedIn && (
         <Button

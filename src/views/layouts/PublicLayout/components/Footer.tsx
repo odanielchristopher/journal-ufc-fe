@@ -1,12 +1,9 @@
-import {
-  FacebookIcon,
-  InstagramIcon,
-  MailIcon,
-  MapPinIcon,
-  PhoneIcon,
-  YoutubeIcon,
-} from 'lucide-react';
+import { FacebookIcon, MailIcon, MapPinIcon, PhoneIcon } from 'lucide-react';
+import { Link } from 'react-router';
 
+import { routes } from '@app/Router/routes';
+import { InstagramIcon } from '@views/assets/InstragramIcon';
+import { YoutubeIcon } from '@views/assets/YoutubeIcon';
 import { Button } from '@views/components/ui/Button';
 
 export function Footer({ className }: { className?: string }) {
@@ -19,7 +16,7 @@ export function Footer({ className }: { className?: string }) {
 
 export function FooterContent() {
   return (
-    <div className="mx-auto flex w-full max-w-7xl flex-col px-8">
+    <div className="mx-auto flex w-full max-w-7xl flex-col">
       <div className="flex flex-wrap items-center justify-start gap-10 md:justify-around md:gap-8">
         <UfcSection />
 
@@ -34,13 +31,15 @@ export function FooterContent() {
 export function UfcSection() {
   return (
     <div className="flex flex-col items-start gap-6">
-      <div className="flex items-center justify-center gap-4">
-        <span className="flex size-13 items-center justify-center rounded-md bg-teal-700 text-xl font-bold text-white">
-          UFC
-        </span>
+      <Link to={routes.home}>
+        <div className="flex items-center justify-center gap-4">
+          <span className="flex size-13 items-center justify-center rounded-md bg-teal-700 text-xl font-bold text-white">
+            UFC
+          </span>
 
-        <strong className="text-lg font-bold">Jornal UFC</strong>
-      </div>
+          <strong className="text-lg font-bold">Jornal UFC</strong>
+        </div>
+      </Link>
 
       <p className="text-muted w-70">
         Campus de excelência em tecnologia e inovação no coração do Ceará.

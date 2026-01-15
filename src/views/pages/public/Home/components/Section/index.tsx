@@ -1,5 +1,8 @@
+import { Link } from 'react-router';
+
 import type { INews } from '@app/entities/News';
 import { cn } from '@app/lib/utils';
+import { routes } from '@app/Router/routes';
 import { NewsCard, type NewsCardProps } from '@views/components/app/NewsCard';
 import {
   Carousel,
@@ -64,7 +67,9 @@ export function Section({ news, variant, title, isLoading }: SectionProps) {
               variant !== 'emphasis' && 'sm:basis-1/2 lg:basis-1/3',
             )}
           >
-            <NewsCard news={content} variant={variant} />
+            <Link to={`${routes.news}/${content.id}`}>
+              <NewsCard news={content} variant={variant} />
+            </Link>
           </CarouselItem>
         ))}
       </CarouselContent>

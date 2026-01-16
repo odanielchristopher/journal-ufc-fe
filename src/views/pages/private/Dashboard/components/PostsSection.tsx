@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@views/components/ui/DropdownMenu';
-import { ChevronDown, Plus } from 'lucide-react';
+import { ChevronDown, Plus, Search, ListFilter } from 'lucide-react';
 
 export function PostsSection() {
   const [category, setCategory] = useState<string | null>(null);
@@ -29,23 +29,27 @@ export function PostsSection() {
       </div>
 
       <div className="flex flex-col gap-4 md:flex-row">
-        <Input
-          name="search"
-          placeholder="Buscar postagens..."
-          floatingLabel={false}
-          className="
-            md:w-1/3
-            bg-gray-100
-            border border-gray-300
-            focus:bg-gray-100
-            h-9
-          "
-        />
+        <div className="relative md:w-1/3">
+          <Input
+            name="search"
+            placeholder="Buscar postagens..."
+            floatingLabel={false}
+            className="
+              md:w-full
+              pl-9
+              bg-gray-100
+              border border-gray-300
+              focus:bg-gray-100
+              h-9
+            "
+          />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 size-4 text-gray-400" />
+        </div>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
-              type='button'
+              type="button"
               variant="outline"
               className="
                 md:w-52
@@ -55,9 +59,14 @@ export function PostsSection() {
                 border border-gray-300
                 text-muted-foreground
                 font-normal
+                gap-2
               "
             >
-              {category ?? 'Todas categorias'}
+              <div className="flex items-center gap-2">
+                <ListFilter className="size-4 text-gray-500" />
+                {category ?? 'Todas categorias'}
+              </div>
+
               <ChevronDown className="size-4 opacity-50" />
             </Button>
           </DropdownMenuTrigger>

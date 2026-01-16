@@ -27,8 +27,8 @@ export function useLoginController() {
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      const { accessToken, refreshToken } = await login(data);
-      signin(accessToken, refreshToken);
+      const { accessToken } = await login(data);
+      signin(accessToken);
     } catch {
       toast.error('Credenciais inválidas!');
     }

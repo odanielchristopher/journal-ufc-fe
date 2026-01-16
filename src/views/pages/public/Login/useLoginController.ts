@@ -23,7 +23,7 @@ export function useLoginController() {
     mutationFn: authService.signin,
   });
 
-  const { signin } = useAuth();
+  const { signin, signedIn } = useAuth();
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
@@ -36,6 +36,7 @@ export function useLoginController() {
 
   return {
     errors,
+    signedIn,
     isLoading,
     register,
     handleSubmit,

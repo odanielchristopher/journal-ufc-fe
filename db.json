@@ -1,0 +1,202 @@
+{
+  "me": {
+    "id": "random-id",
+    "name": "Joãozinho",
+    "email": "joao@mail.com"
+  },
+  "sign-in": {
+    "accessToken": "random-access-token",
+    "refreshToken": "random-refresh-token"
+  },
+  "news": [
+    {
+      "id": "asdas",
+      "title": "UFC Quixadá promove semana de inovação e tecnologia com palestras e workshops",
+      "description": "O evento reunirá pesquisadores, estudantes e profissionais da área de tecnologia para discutir as últimas tendências em inteligência artificial, ciência de dados e desenvolvimento de software.",
+      "imageUrl": "https://images.unsplash.com/photo-1718286703248-d6cedd7d7b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYnJhemlsfGVufDF8fHx8MTc2NTQ3NDg3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:45:59.740Z",
+      "editor": "Redação Ufc",
+      "tag": "destaque"
+    },
+    {
+      "id": "wdasd",
+      "title": "UFC Quixadá promove semana de inovação e tecnologia com palestras e workshops",
+      "description": "O evento reunirá pesquisadores, estudantes e profissionais da área de tecnologia para discutir as últimas tendências em inteligência artificial, ciência de dados e desenvolvimento de software.",
+      "imageUrl": "https://images.unsplash.com/photo-1718286703248-d6cedd7d7b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYnJhemlsfGVufDF8fHx8MTc2NTQ3NDg3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:45:59.740Z",
+      "editor": "Redação Ufc",
+      "tag": "destaque"
+    },
+    {
+      "id": "0122",
+      "title": "UFC Quixadá promove semana de inovação e tecnologia com palestras e workshops",
+      "description": "O evento reunirá pesquisadores, estudantes e profissionais da área de tecnologia para discutir as últimas tendências em inteligência artificial, ciência de dados e desenvolvimento de software.",
+      "imageUrl": "https://images.unsplash.com/photo-1718286703248-d6cedd7d7b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYnJhemlsfGVufDF8fHx8MTc2NTQ3NDg3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:45:59.740Z",
+      "editor": "Redação Ufc",
+      "tag": "destaque"
+    },
+    {
+      "id": "0127",
+      "title": "UFC Quixadá promove semana de inovação e tecnologia com palestras e workshops",
+      "description": "O evento reunirá pesquisadores, estudantes e profissionais da área de tecnologia para discutir as últimas tendências em inteligência artificial, ciência de dados e desenvolvimento de software.",
+      "imageUrl": "https://images.unsplash.com/photo-1718286703248-d6cedd7d7b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYnJhemlsfGVufDF8fHx8MTc2NTQ3NDg3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:45:59.740Z",
+      "editor": "Redação Ufc",
+      "tag": "destaque"
+    },
+    {
+      "id": "03",
+      "title": "UFC Quixadá promove semana de inovação e tecnologia com palestras e workshops",
+      "description": "O evento reunirá pesquisadores, estudantes e profissionais da área de tecnologia para discutir as últimas tendências em inteligência artificial, ciência de dados e desenvolvimento de software.",
+      "imageUrl": "https://images.unsplash.com/photo-1718286703248-d6cedd7d7b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYnJhemlsfGVufDF8fHx8MTc2NTQ3NDg3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:45:59.740Z",
+      "editor": "Redação Ufc",
+      "tag": "destaque"
+    },
+    {
+      "id": "017",
+      "title": "UFC Quixadá promove semana de inovação e tecnologia com palestras e workshops",
+      "description": "O evento reunirá pesquisadores, estudantes e profissionais da área de tecnologia para discutir as últimas tendências em inteligência artificial, ciência de dados e desenvolvimento de software.",
+      "imageUrl": "https://images.unsplash.com/photo-1718286703248-d6cedd7d7b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYnJhemlsfGVufDF8fHx8MTc2NTQ3NDg3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:45:59.740Z",
+      "editor": "Redação Ufc",
+      "tag": "destaque"
+    },
+    {
+      "id": "127",
+      "title": "UFC Quixadá promove semana de inovação e tecnologia com palestras e workshops",
+      "description": "O evento reunirá pesquisadores, estudantes e profissionais da área de tecnologia para discutir as últimas tendências em inteligência artificial, ciência de dados e desenvolvimento de software.",
+      "imageUrl": "https://images.unsplash.com/photo-1718286703248-d6cedd7d7b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYnJhemlsfGVufDF8fHx8MTc2NTQ3NDg3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:45:59.740Z",
+      "editor": "Redação Ufc",
+      "tag": "destaque"
+    },
+    {
+      "id": "0167",
+      "title": "UFC Quixadá promove semana de inovação e tecnologia com palestras e workshops",
+      "description": "O evento reunirá pesquisadores, estudantes e profissionais da área de tecnologia para discutir as últimas tendências em inteligência artificial, ciência de dados e desenvolvimento de software.",
+      "imageUrl": "https://images.unsplash.com/photo-1718286703248-d6cedd7d7b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYnJhemlsfGVufDF8fHx8MTc2NTQ3NDg3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:45:59.740Z",
+      "editor": "Redação Ufc",
+      "tag": "extensão"
+    },
+    {
+      "id": "0120",
+      "title": "UFC Quixadá promove semana de inovação e tecnologia com palestras e workshops",
+      "description": "O evento reunirá pesquisadores, estudantes e profissionais da área de tecnologia para discutir as últimas tendências em inteligência artificial, ciência de dados e desenvolvimento de software.",
+      "imageUrl": "https://images.unsplash.com/photo-1718286703248-d6cedd7d7b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYnJhemlsfGVufDF8fHx8MTc2NTQ3NDg3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:45:59.740Z",
+      "editor": "Redação Ufc",
+      "tag": "extensão"
+    },
+    {
+      "id": "1127",
+      "title": "UFC Quixadá promove semana de inovação e tecnologia com palestras e workshops",
+      "description": "O evento reunirá pesquisadores, estudantes e profissionais da área de tecnologia para discutir as últimas tendências em inteligência artificial, ciência de dados e desenvolvimento de software.",
+      "imageUrl": "https://images.unsplash.com/photo-1718286703248-d6cedd7d7b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYnJhemlsfGVufDF8fHx8MTc2NTQ3NDg3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:45:59.740Z",
+      "editor": "Redação Ufc",
+      "tag": "extensão"
+    },
+    {
+      "id": "0427",
+      "title": "UFC Quixadá promove semana de inovação e tecnologia com palestras e workshops",
+      "description": "O evento reunirá pesquisadores, estudantes e profissionais da área de tecnologia para discutir as últimas tendências em inteligência artificial, ciência de dados e desenvolvimento de software.",
+      "imageUrl": "https://images.unsplash.com/photo-1718286703248-d6cedd7d7b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYnJhemlsfGVufDF8fHx8MTc2NTQ3NDg3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:45:59.740Z",
+      "editor": "Redação Ufc",
+      "tag": "extensão"
+    },
+    {
+      "id": "02127",
+      "title": "UFC Quixadá promove semana de inovação e tecnologia com palestras e workshops",
+      "description": "O evento reunirá pesquisadores, estudantes e profissionais da área de tecnologia para discutir as últimas tendências em inteligência artificial, ciência de dados e desenvolvimento de software.",
+      "imageUrl": "https://images.unsplash.com/photo-1718286703248-d6cedd7d7b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYnJhemlsfGVufDF8fHx8MTc2NTQ3NDg3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:45:59.740Z",
+      "editor": "Redação Ufc",
+      "tag": "extensão"
+    },
+    {
+      "id": "0142",
+      "title": "UFC Quixadá promove semana de inovação e tecnologia com palestras e workshops",
+      "description": "O evento reunirá pesquisadores, estudantes e profissionais da área de tecnologia para discutir as últimas tendências em inteligência artificial, ciência de dados e desenvolvimento de software.",
+      "imageUrl": "https://images.unsplash.com/photo-1718286703248-d6cedd7d7b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYnJhemlsfGVufDF8fHx8MTc2NTQ3NDg3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:45:59.740Z",
+      "editor": "Redação Ufc",
+      "tag": "pesquisa"
+    },
+    {
+      "id": "00023",
+      "title": "UFC Quixadá promove semana de inovação e tecnologia com palestras e workshops",
+      "description": "O evento reunirá pesquisadores, estudantes e profissionais da área de tecnologia para discutir as últimas tendências em inteligência artificial, ciência de dados e desenvolvimento de software.",
+      "imageUrl": "https://images.unsplash.com/photo-1718286703248-d6cedd7d7b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYnJhemlsfGVufDF8fHx8MTc2NTQ3NDg3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:45:59.740Z",
+      "editor": "Redação Ufc",
+      "tag": "pesquisa"
+    },
+    {
+      "id": "asas",
+      "title": "Projeto de extensão leva programação para escolas públicas de Quixadá",
+      "description": "Iniciativa visa democratizar o acesso ao conhecimento tecnológico e despertar vocações na área de computação.",
+      "imageUrl": "https://images.unsplash.com/photo-1765445666604-591364f64599?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzY2llbmNlJTIwdGVjaG5vbG9neSUyMHN0dWRlbnRzfGVufDF8fHx8MTc2NTQ3NDg3OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:46:46.109Z",
+      "editor": "Maria Costa",
+      "tag": "pesquisa"
+    },
+    {
+      "id": "1029",
+      "title": "Projeto de extensão leva programação para escolas públicas de Quixadá",
+      "description": "Iniciativa visa democratizar o acesso ao conhecimento tecnológico e despertar vocações na área de computação.",
+      "imageUrl": "https://images.unsplash.com/photo-1765445666604-591364f64599?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzY2llbmNlJTIwdGVjaG5vbG9neSUyMHN0dWRlbnRzfGVufDF8fHx8MTc2NTQ3NDg3OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:46:46.109Z",
+      "editor": "Maria Costa",
+      "tag": "pesquisa"
+    },
+    {
+      "id": "3293",
+      "title": "Projeto de extensão leva programação para escolas públicas de Quixadá",
+      "description": "Iniciativa visa democratizar o acesso ao conhecimento tecnológico e despertar vocações na área de computação.",
+      "imageUrl": "https://images.unsplash.com/photo-1765445666604-591364f64599?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzY2llbmNlJTIwdGVjaG5vbG9neSUyMHN0dWRlbnRzfGVufDF8fHx8MTc2NTQ3NDg3OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:46:46.109Z",
+      "editor": "Maria Costa",
+      "tag": "pesquisa"
+    },
+    {
+      "id": "a2d",
+      "title": "Pesquisadores desenvolvem sistema de IA para detecção precoce de doenças",
+      "description": "Projeto interdisciplinar une tecnologia e saúde para criar soluções inovadoras que podem salvar vidas.",
+      "imageUrl": "https://images.unsplash.com/photo-1765445666604-591364f64599?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzY2llbmNlJTIwdGVjaG5vbG9neSUyMHN0dWRlbnRzfGVufDF8fHx8MTc2NTQ3NDg3OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:47:05.867Z",
+      "editor": "Prof. Silva",
+      "tag": "pesquisa"
+    },
+    {
+      "id": "032",
+      "title": "Pesquisadores desenvolvem sistema de IA para detecção precoce de doenças",
+      "description": "Projeto interdisciplinar une tecnologia e saúde para criar soluções inovadoras que podem salvar vidas.",
+      "imageUrl": "https://images.unsplash.com/photo-1765445666604-591364f64599?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzY2llbmNlJTIwdGVjaG5vbG9neSUyMHN0dWRlbnRzfGVufDF8fHx8MTc2NTQ3NDg3OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:47:05.867Z",
+      "editor": "Prof. Silva",
+      "tag": "outros"
+    },
+    {
+      "id": "12",
+      "title": "Pesquisadores desenvolvem sistema de IA para detecção precoce de doenças",
+      "description": "Projeto interdisciplinar une tecnologia e saúde para criar soluções inovadoras que podem salvar vidas.",
+      "imageUrl": "https://images.unsplash.com/photo-1765445666604-591364f64599?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzY2llbmNlJTIwdGVjaG5vbG9neSUyMHN0dWRlbnRzfGVufDF8fHx8MTc2NTQ3NDg3OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:47:05.867Z",
+      "editor": "Prof. Silva",
+      "tag": "outros"
+    },
+    {
+      "id": "14",
+      "title": "Pesquisadores desenvolvem sistema de IA para detecção precoce de doenças",
+      "description": "Projeto interdisciplinar une tecnologia e saúde para criar soluções inovadoras que podem salvar vidas.",
+      "imageUrl": "https://images.unsplash.com/photo-1765445666604-591364f64599?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzY2llbmNlJTIwdGVjaG5vbG9neSUyMHN0dWRlbnRzfGVufDF8fHx8MTc2NTQ3NDg3OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "publicationDate": "2026-01-15T15:47:05.867Z",
+      "editor": "Prof. Silva",
+      "tag": "outros"
+    }
+  ]
+}

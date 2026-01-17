@@ -1,15 +1,4 @@
-import type { INews } from '@app/entities/News';
-
-export interface IPersistenceNews {
-  id?: string;
-  title: string;
-  imageUrl: string;
-  description: string;
-  text?: string;
-  publicationDate: string;
-  publishedBy: string;
-  category: string;
-}
+import type { INews, IPersistenceNews } from '@app/entities/News';
 
 export class NewsDataMapper {
   static toPersistence(

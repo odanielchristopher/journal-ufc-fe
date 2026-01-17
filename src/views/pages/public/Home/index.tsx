@@ -1,9 +1,8 @@
-import { useNews } from '@app/hooks/useNews';
-
 import { Section } from './components/Section';
+import { useHomeController } from './useHomeController';
 
 export function Home() {
-  const { news, isLoading } = useNews();
+  const { news, isLoading } = useHomeController();
 
   return (
     <main className="mx-auto mb-8 flex w-full max-w-7xl flex-1 flex-col gap-10 p-8">

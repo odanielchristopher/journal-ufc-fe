@@ -8,6 +8,12 @@ import {
   DropdownMenuTrigger,
 } from '@views/components/ui/DropdownMenu';
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@views/components/ui/Dialog';
+import {
   ChevronDown,
   Plus,
   Search,
@@ -26,6 +32,7 @@ export function PostsSection() {
   const [search, setSearch] = useState('');
   const [news, setNews] = useState<INews[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
   useEffect(() => {
     newsService
@@ -35,19 +42,19 @@ export function PostsSection() {
   }, []);
 
   const filteredNews = useMemo(() => {
-  const normalizedSearch = normalizeText(search);
+    const normalizedSearch = normalizeText(search);
 
-  return news.filter((item) => {
-    const matchesCategory =
-      !category || item.tag === category.toLowerCase();
+    return news.filter((item) => {
+      const matchesCategory =
+        !category || item.tag === category.toLowerCase();
 
-    const matchesSearch =
-      normalizeText(item.title).includes(normalizedSearch) ||
-      normalizeText(item.description).includes(normalizedSearch);
+      const matchesSearch =
+        normalizeText(item.title).includes(normalizedSearch) ||
+        normalizeText(item.description).includes(normalizedSearch);
 
-    return matchesCategory && matchesSearch;
-  });
-}, [news, category, search]);
+      return matchesCategory && matchesSearch;
+    });
+  }, [news, category, search]);
 
   const categories = useMemo(() => {
     const tags = news.map((item) => item.tag.toLowerCase());
@@ -65,7 +72,11 @@ export function PostsSection() {
             </p>
           </div>
 
-          <Button type="button" className="gap-2">
+          <Button
+            type="button"
+            className="gap-2"
+            onClick={() => setIsCreateDialogOpen(true)}
+          >
             <Plus className="size-4" />
             Nova Postagem
           </Button>
@@ -197,6 +208,25 @@ export function PostsSection() {
           </div>
         ))}
       </div>
+
+      <Dialog
+        open={isCreateDialogOpen}
+        onOpenChange={setIsCreateDialogOpen}
+      >
+        <DialogContent className="
+          w-[50vw]
+          max-w-none
+          sm:max-w-none
+        ">
+          <DialogHeader>
+            <DialogTitle>Nova Postagem</DialogTitle>
+          </DialogHeader>
+
+          {/* formulário entra aqui depois */}
+          <div className="h-100" />
+
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

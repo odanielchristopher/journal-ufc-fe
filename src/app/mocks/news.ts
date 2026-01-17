@@ -11,7 +11,7 @@ export const NEWS: INews[] = [
       'https://images.unsplash.com/photo-1718286703248-d6cedd7d7b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwYnJhemlsfGVufDF8fHx8MTc2NTQ3NDg3N3ww&ixlib=rb-4.1.0&q=80&w=1080',
     publicationDate: new Date().toISOString(),
     editor: 'Redação Ufc',
-    tag: {
+    category: {
       id: 'sdasd',
       name: 'destaque',
     },
@@ -26,7 +26,7 @@ export const NEWS: INews[] = [
       'https://images.unsplash.com/photo-1765445666604-591364f64599?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzY2llbmNlJTIwdGVjaG5vbG9neSUyMHN0dWRlbnRzfGVufDF8fHx8MTc2NTQ3NDg3OHww&ixlib=rb-4.1.0&q=80&w=1080',
     publicationDate: new Date().toISOString(),
     editor: 'Maria Costa',
-    tag: {
+    category: {
       id: 'jd',
       name: 'extensão',
     },
@@ -41,7 +41,7 @@ export const NEWS: INews[] = [
       'https://images.unsplash.com/photo-1765445666604-591364f64599?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzY2llbmNlJTIwdGVjaG5vbG9neSUyMHN0dWRlbnRzfGVufDF8fHx8MTc2NTQ3NDg3OHww&ixlib=rb-4.1.0&q=80&w=1080',
     publicationDate: new Date().toISOString(),
     editor: 'Prof. Silva',
-    tag: {
+    category: {
       id: '003',
       name: 'pesquisa',
     },

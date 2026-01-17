@@ -45,7 +45,7 @@ export function useHomeController() {
     };
 
     news?.forEach((news) =>
-      data[(news.tag as keyof typeof data) ?? 'outros'].data.push(news),
+      data[(news.category as keyof typeof data) ?? 'outros'].data.push(news),
     );
 
     return data;

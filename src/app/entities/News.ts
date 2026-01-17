@@ -1,21 +1,30 @@
+export enum Category {
+  DESTAQUE = 'DESTAQUE',
+  PESQUISA = 'PESQUISA',
+  EXTENSAO = 'EXTENSAO',
+  ENSINO = 'ENSINO',
+  EVENTOS = 'EVENTOS',
+  COMUNIDADE = 'COMUNIDADE',
+}
+
 export interface INews {
-  id: string;
+  id: number;
   title: string;
   imageUrl: string;
   description: string;
   content?: string;
   publicationDate: string;
   editor: string;
-  tag: string;
+  category: Category;
 }
 
 export interface IPersistenceNews {
-  id?: string;
+  id?: number;
   title: string;
   imageUrl: string;
   description: string;
   text?: string;
   publicationDate: string;
   publishedBy: string;
-  category: string;
+  category: Category;
 }

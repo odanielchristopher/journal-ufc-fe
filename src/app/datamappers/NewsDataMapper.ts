@@ -4,8 +4,14 @@ export class NewsDataMapper {
   static toPersistence(
     domainNews: Omit<INews, 'id'>,
   ): Omit<IPersistenceNews, 'publishedBy'> {
-    const { title, imageUrl, description, content, publicationDate, tag } =
-      domainNews;
+    const {
+      title,
+      imageUrl,
+      description,
+      content,
+      publicationDate,
+      category: tag,
+    } = domainNews;
 
     return {
       title,
@@ -31,7 +37,7 @@ export class NewsDataMapper {
 
     return {
       id: id!,
-      tag: category,
+      category: category,
       title,
       content: text,
       imageUrl,

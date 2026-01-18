@@ -109,7 +109,7 @@ export function ViewNews() {
                 ),
             )
           ) : (
-            <p className="text-gray-500">Conteúdo não disponível.</p>
+            <p className="text-gray-500">{data.content}</p>
           )}
         </div>
       </div>

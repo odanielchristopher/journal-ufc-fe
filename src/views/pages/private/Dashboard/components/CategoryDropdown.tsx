@@ -1,8 +1,8 @@
 import { ChevronDown, ListFilter } from 'lucide-react';
 import { useMemo, useState } from 'react';
 
-import { Category } from '@app/entities/News';
-import { capitalizeFirstLetter } from '@app/utils/capitalizeFirstLetter';
+import { CategoryDataMapper } from '@app/datamappers/CategoryDataMapper';
+import { Category } from '@app/enums/Category';
 import { Button } from '@views/components/ui/Button';
 import {
   DropdownMenu,
@@ -31,7 +31,7 @@ export function CategoryDropdown({ onCategoryChange }: CategoryDropdownProps) {
   }
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button
           type="button"
@@ -41,7 +41,7 @@ export function CategoryDropdown({ onCategoryChange }: CategoryDropdownProps) {
           <div className="flex items-center gap-2">
             <ListFilter className="size-4 text-gray-500" />
             {selectedCategory
-              ? capitalizeFirstLetter(selectedCategory.toLowerCase())
+              ? CategoryDataMapper.toDomain(selectedCategory)
               : 'Todas categorias'}
           </div>
 
@@ -56,7 +56,7 @@ export function CategoryDropdown({ onCategoryChange }: CategoryDropdownProps) {
 
         {categories.map((cat) => (
           <DropdownMenuItem key={cat} onClick={() => handleCategory(cat)}>
-            {capitalizeFirstLetter(cat.toLowerCase())}
+            {CategoryDataMapper.toDomain(cat)}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

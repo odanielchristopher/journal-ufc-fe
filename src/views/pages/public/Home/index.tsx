@@ -11,7 +11,7 @@ export function Home() {
           key={key}
           news={value.data}
           title={value.title}
-          variant={key === 'destaque' ? 'emphasis' : 'default'}
+          variant={key === 'DESTAQUE' ? 'emphasis' : 'default'}
           isLoading={isLoading}
         />
       ))}

@@ -1,6 +1,7 @@
 import { Plus, Search } from 'lucide-react';
 
 import { NewsCard } from '@views/components/app/NewsCard';
+import { OrderSelect } from '@views/components/app/OrderSelect';
 import { Button } from '@views/components/ui/Button';
 import {
   Dialog,
@@ -22,6 +23,7 @@ export function PostsSection() {
     isLoading,
     handleIsCreateDialogOpen,
     handleSearch,
+    handleCategory,
   } = usePostsSectionController();
 
   return (
@@ -58,7 +60,9 @@ export function PostsSection() {
             <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-gray-400" />
           </div>
 
-          <CategoryDropdown />
+          <CategoryDropdown onCategoryChange={handleCategory} />
+
+          <OrderSelect />
         </div>
       </div>
 

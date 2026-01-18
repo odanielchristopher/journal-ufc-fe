@@ -2,6 +2,8 @@ import type { AxiosInstance } from 'axios';
 
 import { NewsDataMapper } from '@app/datamappers/NewsDataMapper';
 import type { INews, IPersistenceNews } from '@app/entities/News';
+import type { Category } from '@app/enums/Category';
+import type { Order } from '@app/enums/Order';
 
 import { httpClient } from './httpClient';
 
@@ -60,9 +62,8 @@ export class NewsService {
 
 export namespace NewsService {
   export type GetAllParams = {
-    page?: number;
-    perPage?: number;
-    query?: string;
+    order?: Order;
+    category?: Category;
   };
 
   export type GetByIdParams = {

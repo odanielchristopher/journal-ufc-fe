@@ -1,11 +1,4 @@
-export enum Category {
-  DESTAQUE = 'DESTAQUE',
-  PESQUISA = 'PESQUISA',
-  EXTENSAO = 'EXTENSAO',
-  ENSINO = 'ENSINO',
-  EVENTOS = 'EVENTOS',
-  COMUNIDADE = 'COMUNIDADE',
-}
+import type { Category } from '@app/enums/Category';
 
 export interface INews {
   id: number;

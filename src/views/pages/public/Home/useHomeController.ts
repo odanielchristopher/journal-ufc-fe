@@ -1,45 +1,37 @@
 import { useMemo } from 'react';
 
 import type { INews } from '@app/entities/News';
+import type { Category } from '@app/enums/Category';
 import { useNews } from '@app/hooks/useNews';
 
-export type NewsMap = {
-  destaque: {
-    title?: string;
-    data: INews[];
-  };
-  pesquisa: {
-    title: string;
-    data: INews[];
-  };
-  extensão: {
-    title: string;
-    data: INews[];
-  };
-  outros: {
-    title: string;
-    data: INews[];
-  };
-};
+export type NewsMap = Record<Category, { title?: string; data: INews[] }>;
 
 export function useHomeController() {
   const { news, isLoading } = useNews();
 
   const map = useMemo(() => {
     const data: NewsMap = {
-      destaque: {
+      DESTAQUE: {
         data: [],
       },
-      extensão: {
+      EXTENSAO: {
         title: 'Extensão Universitária',
         data: [],
       },
-      pesquisa: {
+      PESQUISA: {
         title: 'Pesquisa e Inovação',
         data: [],
       },
-      outros: {
-        title: 'Outras notícias',
+      COMUNIDADE: {
+        title: 'Comunidade',
+        data: [],
+      },
+      ENSINO: {
+        title: 'Ensino e Tecnologia',
+        data: [],
+      },
+      EVENTOS: {
+        title: 'Eventos disponíveis',
         data: [],
       },
     };

@@ -52,6 +52,7 @@ export function EditNewsDialog({
           defaultValues={news}
           isLoading={isLoading}
           onSubmit={handleSubmit}
+          buttonLabel="Editar postagem"
         />
       </DialogContent>
     </Dialog>

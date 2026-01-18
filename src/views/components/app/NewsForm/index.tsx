@@ -13,9 +13,10 @@ import {
 
 interface NewsFormProps extends IUseNewsFormController {
   isLoading?: boolean;
+  buttonLabel: string;
 }
 
-export function NewsForm({ isLoading, ...props }: NewsFormProps) {
+export function NewsForm({ isLoading, buttonLabel, ...props }: NewsFormProps) {
   const { formState, form, handleSubmit, register } =
     useNewsFormController(props);
 
@@ -70,7 +71,7 @@ export function NewsForm({ isLoading, ...props }: NewsFormProps) {
         disabled={isLoading}
         isLoading={isLoading}
       >
-        Criar nova postagem
+        {buttonLabel}
       </Button>
     </form>
   );

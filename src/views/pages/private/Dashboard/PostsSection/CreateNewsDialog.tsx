@@ -42,7 +42,11 @@ export function CreateNewsDialog({ isOpen, onClose }: CreateNewsDialogProps) {
           <DialogTitle>Nova Postagem</DialogTitle>
         </DialogHeader>
 
-        <NewsForm isLoading={isLoading} onSubmit={handleSubmit} />
+        <NewsForm
+          isLoading={isLoading}
+          onSubmit={handleSubmit}
+          buttonLabel="Criar nova postagem"
+        />
       </DialogContent>
     </Dialog>
   );

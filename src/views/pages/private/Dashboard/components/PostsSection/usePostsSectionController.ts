@@ -9,6 +9,8 @@ export function usePostsSectionController() {
   const [search, setSearch] = useState('');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
+  const [newsToDelete, setNewsToDelete] = useState<number | null>(null);
+
   const { isLoading, news } = useNews();
 
   const filteredNews = useMemo(() => {
@@ -42,6 +44,14 @@ export function usePostsSectionController() {
     setSearch(searchTerm);
   }, []);
 
+  const handleSetNewsToDelete = useCallback((id: number) => {
+    setNewsToDelete(id);
+  }, []);
+
+  const handleResetNewsToDelete = useCallback(() => {
+    setNewsToDelete(null);
+  }, []);
+
   return {
     search,
     categories,
@@ -49,8 +59,11 @@ export function usePostsSectionController() {
     isLoading,
     category,
     isCreateDialogOpen,
+    newsToDelete,
     handleSearch,
     handleCategory,
     handleIsCreateDialogOpen,
+    handleSetNewsToDelete,
+    handleResetNewsToDelete,
   };
 }

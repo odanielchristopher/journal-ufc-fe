@@ -14,14 +14,28 @@ import { CategoryDropdown } from '../CategoryDropdown';
 
 import { usePostsSectionController } from './usePostsSectionController';
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@views/components/ui/AlertDialog';
+
 export function PostsSection() {
   const {
     search,
     filteredNews,
     isCreateDialogOpen,
     isLoading,
+    newsToDelete,
     handleIsCreateDialogOpen,
     handleSearch,
+    handleSetNewsToDelete,
+    handleResetNewsToDelete,
   } = usePostsSectionController();
 
   return (
@@ -79,16 +93,13 @@ export function PostsSection() {
             news={item}
             variant="edit"
             onEdit={() => console.log('Editando o conteudo')}
-            onRemove={() => console.log('Apagando o conteudo')}
+            onRemove={() => handleSetNewsToDelete(item.id)}
           />
         ))}
       </div>
 
       <Dialog open={isCreateDialogOpen} onOpenChange={handleIsCreateDialogOpen}>
-        <DialogContent className="
-            w-[95vw] max-w-[640px]
-            sm:w-full
-          ">
+        <DialogContent className="w-[95vw] max-w-[640px] sm:w-full">
           <DialogHeader>
             <DialogTitle>Nova Postagem</DialogTitle>
           </DialogHeader>
@@ -97,6 +108,41 @@ export function PostsSection() {
           <div className="h-100" />
         </DialogContent>
       </Dialog>
+
+      
+      <AlertDialog
+        open={!!newsToDelete}
+        onOpenChange={(open) => {
+          if (!open) handleResetNewsToDelete();
+        }}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Essa ação é irreversível. Você realmente deseja apagar esta
+              postagem?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+
+            <AlertDialogAction
+              className="bg-red-600 hover:bg-red-700"
+              onClick={() => {
+                if (!newsToDelete) return;
+
+                console.log('Apagando postagem:', newsToDelete);
+
+                handleResetNewsToDelete();
+              }}
+            >
+              Apagar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

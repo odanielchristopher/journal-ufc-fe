@@ -41,7 +41,7 @@ export function Dashboard() {
           <Button type="button" variant="outline" className="bg-white" asChild>
             <Link to={routes.home}>
               <HomeIcon className="size-5" />
-              Ir para o site
+              <span className="max-sm:hidden">Ir para o site</span>
             </Link>
           </Button>
 
@@ -52,7 +52,7 @@ export function Dashboard() {
             onClick={signout}
           >
             <LogOutIcon className="size-5" />
-            Sair
+            <span className="max-sm:hidden">Sair</span>
           </Button>
         </div>
       </header>

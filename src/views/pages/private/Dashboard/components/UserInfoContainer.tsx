@@ -7,7 +7,7 @@ interface UserInfoContainerProps {
 
 export function UserInfoContainer({ user }: UserInfoContainerProps) {
   return (
-    <div className="flex items-center gap-2 rounded-md p-2.5">
+    <div className="flex items-center gap-2 rounded-md p-2.5 max-sm:hidden">
       <Avatar className="size-9">
         <AvatarFallback className="text-primary-foreground size-9 bg-gray-600 text-sm">
           {user.name.slice(0, 2).toUpperCase()}

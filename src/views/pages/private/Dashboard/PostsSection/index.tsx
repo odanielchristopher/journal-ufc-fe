@@ -13,11 +13,14 @@ import { usePostsSectionController } from './usePostsSectionController';
 export function PostsSection() {
   const {
     search,
+    order,
     filteredNews,
     isEditDialogOpen,
     isCreateDialogOpen,
     isLoading,
     postToEdit,
+    category,
+    handleNewsOrder,
     handleIsCreateDialogOpen,
     handleSearch,
     handleCloseEditDialog,
@@ -73,9 +76,15 @@ export function PostsSection() {
             <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-gray-400" />
           </div>
 
-          <CategoryDropdown onCategoryChange={handleCategory} />
+          <CategoryDropdown
+            value={category ?? undefined}
+            onCategoryChange={handleCategory}
+          />
 
-          <OrderSelect />
+          <OrderSelect
+            value={order ?? undefined}
+            onOrderChange={handleNewsOrder}
+          />
         </div>
       </div>
 

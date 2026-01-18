@@ -18,7 +18,7 @@ import {
   TabsTrigger,
 } from '@views/components/ui/Tabs';
 
-import { PostsSection } from '../Dashboard/components/PostsSection';
+import { PostsSection } from '../Dashboard/PostsSection';
 
 import { UserInfoContainer } from './components/UserInfoContainer';
 

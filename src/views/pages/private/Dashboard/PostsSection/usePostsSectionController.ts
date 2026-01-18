@@ -59,6 +59,7 @@ export function usePostsSectionController() {
 
   return {
     search,
+    order,
     filteredNews,
     isLoading,
     postToEdit,

@@ -22,7 +22,7 @@ export function CreateNewsDialog({ isOpen, onClose }: CreateNewsDialogProps) {
     try {
       await createNews({
         ...formData,
-        publicationDate: new Date(),
+        publishedDate: new Date(),
       });
 
       toast.success('Postagem concluída com sucesso');

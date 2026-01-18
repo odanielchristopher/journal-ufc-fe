@@ -6,7 +6,7 @@ export interface INews {
   imageUrl: string;
   description: string;
   content: string;
-  publicationDate: Date;
+  publishedDate: Date;
   editor: string;
   category: Category;
 }
@@ -14,10 +14,10 @@ export interface INews {
 export interface IPersistenceNews {
   id?: number;
   title: string;
-  imageUrl: string;
+  imagemUrl: string;
   description: string;
   text: string;
-  publicationDate: string;
+  publishedDate: string;
   publishedBy: string;
   category: Category;
 }

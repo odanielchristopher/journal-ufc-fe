@@ -66,7 +66,7 @@ export namespace NewsService {
 
   export type CreateParams = Omit<INews, 'id' | 'editor'>;
 
-  export type UpdateParams = Omit<INews, 'editor' | 'publicationDate'>;
+  export type UpdateParams = Omit<INews, 'editor' | 'publishedDate'>;
 
   export type RemoveParams = { id: string };
 }

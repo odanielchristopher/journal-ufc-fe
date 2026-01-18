@@ -4,27 +4,27 @@ export class NewsDataMapper {
   static toCreate(
     domainNews: Omit<INews, 'id' | 'editor'>,
   ): Omit<IPersistenceNews, 'publishedBy'> {
-    const { title, imageUrl, description, content, publicationDate, category } =
+    const { title, imageUrl, description, content, publishedDate, category } =
       domainNews;
 
     return {
       title,
-      imageUrl,
+      imagemUrl: imageUrl,
       description,
       text: content,
       category,
-      publicationDate: publicationDate.toISOString(),
+      publishedDate: publishedDate.toISOString(),
     };
   }
 
   static toUpdate(
-    domainNews: Omit<INews, 'id' | 'editor' | 'publicationDate'>,
-  ): Omit<IPersistenceNews, 'publishedBy' | 'publicationDate'> {
+    domainNews: Omit<INews, 'id' | 'editor' | 'publishedDate'>,
+  ): Omit<IPersistenceNews, 'publishedBy' | 'publishedDate'> {
     const { title, imageUrl, description, content, category } = domainNews;
 
     return {
       title,
-      imageUrl,
+      imagemUrl: imageUrl,
       description,
       category,
       text: content,
@@ -37,10 +37,10 @@ export class NewsDataMapper {
       text,
       title,
       category,
-      imageUrl,
+      imagemUrl: imageUrl,
       description,
       publishedBy,
-      publicationDate,
+      publishedDate,
     } = persistenceNews;
 
     return {
@@ -50,7 +50,7 @@ export class NewsDataMapper {
       content: text,
       imageUrl,
       description,
-      publicationDate: new Date(publicationDate),
+      publishedDate: new Date(publishedDate),
       editor: publishedBy,
     };
   }

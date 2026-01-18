@@ -26,8 +26,7 @@ export function EditCard({ news, onEdit, onRemove }: EditCardProps) {
         </p>
 
         <span className="text-muted-foreground text-xs">
-          Por {news.editor} •{' '}
-          {new Date(news.publicationDate).toLocaleDateString('pt-BR')}
+          Por {news.editor} • {news.publishedDate.toLocaleDateString('pt-BR')}
         </span>
       </div>
 

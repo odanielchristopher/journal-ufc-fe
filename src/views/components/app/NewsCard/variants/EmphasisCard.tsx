@@ -12,8 +12,14 @@ export function EmphasisCard({
   isMobile,
   className,
 }: NormalCardProps & { isMobile?: boolean }) {
-  const { editor, description, imageUrl, publicationDate, category, title } =
-    news;
+  const {
+    editor,
+    description,
+    imageUrl,
+    publishedDate: publicationDate,
+    category,
+    title,
+  } = news;
 
   return (
     <article
@@ -46,7 +52,7 @@ export function EmphasisCard({
 
         <div className="flex flex-wrap items-center gap-6">
           <span className="text-muted-foreground flex items-center gap-3 leading-1">
-            <CalendarIcon /> {formatDate(new Date(publicationDate))}
+            <CalendarIcon /> {formatDate(publicationDate)}
           </span>
 
           <span className="text-muted-foreground flex items-center gap-3 leading-1">

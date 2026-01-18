@@ -8,8 +8,14 @@ import { Button } from '@views/components/ui/Button';
 import type { NormalCardProps } from '..';
 
 export function DefaultCard({ news, className }: NormalCardProps) {
-  const { editor, description, imageUrl, publicationDate, category, title } =
-    news;
+  const {
+    editor,
+    description,
+    imageUrl,
+    publishedDate: publicationDate,
+    category,
+    title,
+  } = news;
 
   return (
     <article
@@ -37,7 +43,7 @@ export function DefaultCard({ news, className }: NormalCardProps) {
 
         <div className="mb-4 flex items-center gap-6">
           <span className="text-muted-foreground flex items-center gap-3 leading-1">
-            <CalendarIcon /> {formatDate(new Date(publicationDate))}
+            <CalendarIcon /> {formatDate(publicationDate)}
           </span>
 
           <span className="text-muted-foreground flex items-center gap-3 leading-1">

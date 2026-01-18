@@ -3,18 +3,6 @@ import { Calendar, User, Tag, ArrowLeft } from 'lucide-react';
 import { Button } from '../../../components/ui/Button';
 import { useViewNewsParams } from './useViewNewsParams';
 import { ViewNewsSkeleton } from './components/SectionSkeleton';
-import { Category } from '@app/entities/News';
-
-// isso aqui na verdade nem sei se vai ser implementado, é so uma sugestao que o gemini deu e eu achei bacana
-// vou deixar aqui, e qualquer coisa so apaga e passa a cor direto
-const CATEGORY_COLORS: Record<Category, string> = {
-  [Category.DESTAQUE]: '#12B886',
-  [Category.PESQUISA]: '#228BE6',
-  [Category.EXTENSAO]: '#FAB005',
-  [Category.ENSINO]: '#BE4BDB',
-  [Category.EVENTOS]: '#E64980',
-  [Category.COMUNIDADE]: '#FD7E14',
-};
 
 export function ViewNews() {
   const { data, handleBack, isLoading } = useViewNewsParams();
@@ -33,7 +21,6 @@ export function ViewNews() {
   }
 
   if (!data) return null;
-  const categoryColor = CATEGORY_COLORS[data.category] || '#868E96';
 
   return (
     <article className="animate-fade-in mx-auto max-w-4xl px-4 py-8">
@@ -52,10 +39,7 @@ export function ViewNews() {
 
       <header className="mb-8">
         <div className="mb-4 flex flex-wrap items-center gap-3">
-          <div
-            className="flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white shadow-sm"
-            style={{ backgroundColor: categoryColor }}
-          >
+          <div className="flex items-center gap-2 rounded-full bg-teal-700 px-4 py-1.5 text-xs font-medium text-white shadow-sm">
             <Tag className="h-3 w-3" />
             <span className="tracking-wide uppercase">{data.category}</span>
           </div>
@@ -89,10 +73,7 @@ export function ViewNews() {
 
       <div className="prose prose-lg prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 hover:prose-a:text-blue-800 prose-img:rounded-xl max-w-none">
         <div className="not-prose mb-8 flex gap-4">
-          <div
-            className="w-1.5 shrink-0 rounded-full"
-            style={{ backgroundColor: categoryColor }}
-          />
+          <div className="w-1.5 shrink-0 rounded-full bg-teal-700" />
           <p className="m-0 text-xl font-medium text-gray-600 italic">
             {data.description}
           </p>

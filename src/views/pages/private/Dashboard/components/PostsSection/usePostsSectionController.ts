@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 
+import type { INews } from '@app/entities/News';
 import type { Category } from '@app/enums/Category';
 import type { Order } from '@app/enums/Order';
 import { useNews } from '@app/hooks/useNews';
@@ -10,6 +11,8 @@ export function usePostsSectionController() {
   const [order, setOrder] = useState<Order | null>(null);
   const [search, setSearch] = useState('');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [postToEdit, setPostToEdit] = useState<INews | null>(null);
 
   const { isLoading, news } = useNews({
     category: category ?? undefined,
@@ -36,6 +39,16 @@ export function usePostsSectionController() {
     setIsCreateDialogOpen(open);
   }, []);
 
+  function handleOpenEditDialog(news: INews) {
+    setIsEditDialogOpen(true);
+    setPostToEdit(news);
+  }
+
+  function handleCloseEditDialog() {
+    setIsEditDialogOpen(false);
+    setPostToEdit(null);
+  }
+
   const handleSearch = useCallback((searchTerm: string) => {
     setSearch(searchTerm);
   }, []);
@@ -48,11 +61,15 @@ export function usePostsSectionController() {
     search,
     filteredNews,
     isLoading,
+    postToEdit,
     category,
     isCreateDialogOpen,
+    isEditDialogOpen,
     handleNewsOrder,
     handleSearch,
     handleCategory,
+    handleOpenEditDialog,
+    handleCloseEditDialog,
     handleIsCreateDialogOpen,
   };
 }

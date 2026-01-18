@@ -55,7 +55,7 @@ export function NewsForm({ isLoading, ...props }: NewsFormProps) {
         render={({ field: { onChange, value } }) => (
           <CategoryDropdown
             isFilter={false}
-            className="w-full! bg-white hover:bg-white"
+            className="h-12 w-full! bg-white hover:bg-white"
             value={value}
             placeholder="Selecione uma categoria*"
             onCategoryChange={onChange}

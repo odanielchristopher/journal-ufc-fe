@@ -5,13 +5,13 @@ import { newsFormSchema, type NewsFormData } from './schema';
 
 export interface IUseNewsFormController {
   defaultValues?: NewsFormData;
-  onSubmit?(formData: NewsFormData): void;
+  onSubmit(formData: NewsFormData): void | Promise<void>;
 }
 
 export function useNewsFormController({
   defaultValues,
   onSubmit,
-}: IUseNewsFormController = {}) {
+}: IUseNewsFormController) {
   const { register, formState, ...form } = useForm<NewsFormData>({
     defaultValues: {
       title: defaultValues?.title ?? '',
@@ -23,8 +23,8 @@ export function useNewsFormController({
     resolver: zodResolver(newsFormSchema),
   });
 
-  const handleSubmit = form.handleSubmit((formData) => {
-    onSubmit?.(formData);
+  const handleSubmit = form.handleSubmit(async (formData) => {
+    await onSubmit(formData);
   });
 
   return {

@@ -40,7 +40,7 @@ export class NewsService {
   async create(params: NewsService.CreateParams) {
     const { data } = await this.httpClient.post<IPersistenceNews>(
       this.BASE_ROUTE,
-      NewsDataMapper.toPersistence(params),
+      NewsDataMapper.toCreate(params),
     );
 
     return NewsDataMapper.toDomain(data);
@@ -49,7 +49,7 @@ export class NewsService {
   async update({ id, ...params }: NewsService.UpdateParams) {
     const { data } = await this.httpClient.put<IPersistenceNews>(
       `${this.BASE_ROUTE}/${id}`,
-      params,
+      NewsDataMapper.toUpdate(params),
     );
 
     return NewsDataMapper.toDomain(data);
@@ -70,9 +70,9 @@ export namespace NewsService {
     id: string;
   };
 
-  export type CreateParams = Omit<INews, 'id'>;
+  export type CreateParams = Omit<INews, 'id' | 'editor'>;
 
-  export type UpdateParams = INews;
+  export type UpdateParams = Omit<INews, 'editor' | 'publicationDate'>;
 
   export type RemoveParams = { id: string };
 }

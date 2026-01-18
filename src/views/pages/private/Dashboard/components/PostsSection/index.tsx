@@ -2,32 +2,45 @@ import { Plus, Search } from 'lucide-react';
 
 import { CategoryDropdown } from '@views/components/app/CategoryDropdown';
 import { NewsCard } from '@views/components/app/NewsCard';
-import { NewsForm } from '@views/components/app/NewsForm';
 import { OrderSelect } from '@views/components/app/OrderSelect';
 import { Button } from '@views/components/ui/Button';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@views/components/ui/Dialog';
 import { Input } from '@views/components/ui/Input';
 
+import { CreateNewsDialog } from './CreateNewsDialog';
+import { EditNewsDialog } from './EditNewsDialog';
 import { usePostsSectionController } from './usePostsSectionController';
 
 export function PostsSection() {
   const {
     search,
     filteredNews,
+    isEditDialogOpen,
     isCreateDialogOpen,
     isLoading,
+    postToEdit,
     handleIsCreateDialogOpen,
     handleSearch,
+    handleCloseEditDialog,
+    handleOpenEditDialog,
     handleCategory,
   } = usePostsSectionController();
 
   return (
     <div className="space-y-8">
+      {isCreateDialogOpen && (
+        <CreateNewsDialog
+          isOpen={isCreateDialogOpen}
+          onClose={() => handleIsCreateDialogOpen(false)}
+        />
+      )}
+
+      {isEditDialogOpen && postToEdit && (
+        <EditNewsDialog
+          news={postToEdit}
+          isOpen={isEditDialogOpen}
+          onClose={handleCloseEditDialog}
+        />
+      )}
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
@@ -82,21 +95,11 @@ export function PostsSection() {
             key={item.id}
             news={item}
             variant="edit"
-            onEdit={() => console.log('Editando o conteudo')}
+            onEdit={() => handleOpenEditDialog(item)}
             onRemove={() => console.log('Apagando o conteudo')}
           />
         ))}
       </div>
-
-      <Dialog open={true} onOpenChange={handleIsCreateDialogOpen}>
-        <DialogContent className="w-[50vw] max-w-none sm:max-w-none">
-          <DialogHeader>
-            <DialogTitle>Nova Postagem</DialogTitle>
-          </DialogHeader>
-
-          <NewsForm />
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }

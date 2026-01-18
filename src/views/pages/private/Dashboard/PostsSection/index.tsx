@@ -5,6 +5,7 @@ import { NewsCard } from '@views/components/app/NewsCard';
 import { OrderSelect } from '@views/components/app/OrderSelect';
 import { Button } from '@views/components/ui/Button';
 import { Input } from '@views/components/ui/Input';
+import { Skeleton } from '@views/components/ui/Skeleton';
 
 import { CreateNewsDialog } from './CreateNewsDialog';
 import { EditNewsDialog } from './EditNewsDialog';
@@ -90,7 +91,13 @@ export function PostsSection() {
 
       <div className="space-y-4">
         {isLoading && (
-          <p className="text-muted-foreground text-sm">Carregando...</p>
+          <>
+            <Skeleton className="h-40" />
+            <Skeleton className="h-40" />
+            <Skeleton className="h-40" />
+            <Skeleton className="h-40" />
+            <Skeleton className="h-40" />
+          </>
         )}
 
         {!isLoading && filteredNews.length === 0 && (
@@ -99,15 +106,16 @@ export function PostsSection() {
           </p>
         )}
 
-        {filteredNews.map((item) => (
-          <NewsCard
-            key={item.id}
-            news={item}
-            variant="edit"
-            onEdit={() => handleOpenEditDialog(item)}
-            onRemove={() => console.log('Apagando o conteudo')}
-          />
-        ))}
+        {!isLoading &&
+          filteredNews.map((item) => (
+            <NewsCard
+              key={item.id}
+              news={item}
+              variant="edit"
+              onEdit={() => handleOpenEditDialog(item)}
+              onRemove={() => console.log('Apagando o conteudo')}
+            />
+          ))}
       </div>
     </div>
   );

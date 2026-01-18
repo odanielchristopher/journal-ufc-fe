@@ -9,28 +9,29 @@ import {
 import { httpClient } from './httpClient';
 
 class AuthService {
-  constructor(private readonly httpClient: AxiosInstance) {
-    this.signin.bind(this);
-  }
+  constructor(private readonly httpClient: AxiosInstance) {}
 
-  async signin({
-    email,
+  signin = async ({
+    username,
     password,
-  }: AuthService.SignInInput): Promise<AuthService.SignInOutPut> {
-    const { data } = await this.httpClient.post<IPersistenceAuth>('/sign-in', {
-      email,
-      password,
-    });
+  }: AuthService.SignInInput): Promise<AuthService.SignInOutPut> => {
+    const { data } = await this.httpClient.post<IPersistenceAuth>(
+      '/auth/login',
+      {
+        email: username,
+        password,
+      },
+    );
 
     return AuthDataMapper.toDomain(data);
-  }
+  };
 }
 
 export const authService = new AuthService(httpClient);
 
 export namespace AuthService {
   export type SignInInput = {
-    email: string;
+    username: string;
     password: string;
   };
 

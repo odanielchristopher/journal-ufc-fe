@@ -1,8 +1,9 @@
 {
-  "me": {
+  "users": {
     "id": "random-id",
-    "name": "Joãozinho",
-    "email": "joao@mail.com"
+    "nickname": "Joãozinho",
+    "username": "joao@mail.com",
+    "role": "ADMIN"
   },
   "sign-in": {
     "accessToken": "random-access-token",

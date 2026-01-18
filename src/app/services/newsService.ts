@@ -10,15 +10,9 @@ import { httpClient } from './httpClient';
 export class NewsService {
   readonly BASE_ROUTE = '/news';
 
-  constructor(private readonly httpClient: AxiosInstance) {
-    this.getAll.bind(this);
-    this.getById.bind(this);
-    this.create.bind(this);
-    this.update.bind(this);
-    this.remove.bind(this);
-  }
+  constructor(private readonly httpClient: AxiosInstance) {}
 
-  async getAll(params: NewsService.GetAllParams = {}) {
+  getAll = async (params: NewsService.GetAllParams = {}) => {
     const { data } = await this.httpClient.get<IPersistenceNews[]>(
       this.BASE_ROUTE,
       {
@@ -27,37 +21,37 @@ export class NewsService {
     );
 
     return data.map((news) => NewsDataMapper.toDomain(news));
-  }
+  };
 
-  async getById({ id }: NewsService.GetByIdParams) {
+  getById = async ({ id }: NewsService.GetByIdParams) => {
     const { data } = await this.httpClient.get<IPersistenceNews>(
       `${this.BASE_ROUTE}/${id}`,
     );
 
     return NewsDataMapper.toDomain(data);
-  }
+  };
 
-  async create(params: NewsService.CreateParams) {
+  create = async (params: NewsService.CreateParams) => {
     const { data } = await this.httpClient.post<IPersistenceNews>(
       this.BASE_ROUTE,
       NewsDataMapper.toCreate(params),
     );
 
     return NewsDataMapper.toDomain(data);
-  }
+  };
 
-  async update({ id, ...params }: NewsService.UpdateParams) {
+  update = async ({ id, ...params }: NewsService.UpdateParams) => {
     const { data } = await this.httpClient.put<IPersistenceNews>(
       `${this.BASE_ROUTE}/${id}`,
       NewsDataMapper.toUpdate(params),
     );
 
     return NewsDataMapper.toDomain(data);
-  }
+  };
 
-  async remove({ id }: NewsService.RemoveParams) {
+  remove = async ({ id }: NewsService.RemoveParams) => {
     await this.httpClient.delete(`${this.BASE_ROUTE}/${id}`);
-  }
+  };
 }
 
 export namespace NewsService {

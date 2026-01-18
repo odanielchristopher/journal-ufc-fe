@@ -1,37 +1,29 @@
 import type { AxiosInstance } from 'axios';
 
+import {
+  AuthDataMapper,
+  type IDomainAuth,
+  type IPersistenceAuth,
+} from '@app/datamappers/AuthDataMapper';
+
 import { httpClient } from './httpClient';
 
 class AuthService {
-  constructor(private readonly httpClient: AxiosInstance) {}
+  constructor(private readonly httpClient: AxiosInstance) {
+    this.signin.bind(this);
+  }
 
-  signin = async ({
+  async signin({
     email,
     password,
-  }: AuthService.SignInInput): Promise<AuthService.SignInOutPut> => {
-    console.log('Usuário logado: ', { email, password });
-    const {
-      data: { accessToken, refreshToken },
-    } = await this.httpClient.get<AuthService.SignInOutPut>('/sign-in');
-
-    return {
-      accessToken,
-      refreshToken,
-    };
-  };
-
-  refreshToken = async (refreshTokenId: string) => {
-    const {
-      data: { accessToken, refreshToken },
-    } = await httpClient.post<AuthService.SignInOutPut>('/auth/refresh-token', {
-      refreshToken: refreshTokenId,
+  }: AuthService.SignInInput): Promise<AuthService.SignInOutPut> {
+    const { data } = await this.httpClient.post<IPersistenceAuth>('/sign-in', {
+      email,
+      password,
     });
 
-    return {
-      accessToken,
-      refreshToken,
-    };
-  };
+    return AuthDataMapper.toDomain(data);
+  }
 }
 
 export const authService = new AuthService(httpClient);
@@ -42,8 +34,5 @@ export namespace AuthService {
     password: string;
   };
 
-  export type SignInOutPut = {
-    accessToken: string;
-    refreshToken: string;
-  };
+  export type SignInOutPut = IDomainAuth;
 }

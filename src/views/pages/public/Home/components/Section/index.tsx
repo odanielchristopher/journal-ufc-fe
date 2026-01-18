@@ -68,7 +68,10 @@ export function Section({ news, variant, title, isLoading }: SectionProps) {
             )}
           >
             <Link to={`${routes.news}/${content.id}`}>
-              <NewsCard news={content} variant={variant} />
+              <NewsCard
+                news={content}
+                variant={variant === 'emphasis' ? 'emphasis' : 'default'}
+              />
             </Link>
           </CarouselItem>
         ))}

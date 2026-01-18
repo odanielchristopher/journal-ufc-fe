@@ -1,4 +1,4 @@
-import { CalendarIcon, UserIcon } from 'lucide-react';
+import { CalendarIcon, Pencil, Trash2, UserIcon } from 'lucide-react';
 
 import type { INews } from '@app/entities/News';
 import { useIsMobile } from '@app/hooks/useIsMobile';
@@ -7,14 +7,27 @@ import { capitalizeFirstLetter } from '@app/utils/capitalizeFirstLetter';
 import { formatDate } from '@app/utils/formatDate';
 import { Button } from '@views/components/ui/Button';
 
-export interface NewsCardProps {
+type EditCardProps = {
+  news: INews;
+  onEdit(): void;
+  onRemove(): void;
+  variant: 'edit';
+};
+
+type NormalCardProps = {
   news: INews;
   variant?: 'default' | 'emphasis';
   className?: string;
-}
+};
+
+export type NewsCardProps = NormalCardProps | EditCardProps;
 
 export function NewsCard(props: NewsCardProps) {
   const isMobile = useIsMobile(768);
+
+  if (props.variant === 'edit') {
+    return <EditCard {...props} />;
+  }
 
   if (props.variant === 'emphasis' && !isMobile) {
     return <EmphasisCard {...props} />;
@@ -27,8 +40,15 @@ export function EmphasisCard({
   news,
   isMobile,
   className,
-}: NewsCardProps & { isMobile?: boolean }) {
-  const { editor, description, imageUrl, publicationDate, tag, title } = news;
+}: NormalCardProps & { isMobile?: boolean }) {
+  const {
+    editor,
+    description,
+    imageUrl,
+    publicationDate,
+    category: tag,
+    title,
+  } = news;
   return (
     <article
       className={cn(
@@ -77,8 +97,15 @@ export function EmphasisCard({
   );
 }
 
-export function DefaultCard({ news, className }: NewsCardProps) {
-  const { editor, description, imageUrl, publicationDate, tag, title } = news;
+export function DefaultCard({ news, className }: NormalCardProps) {
+  const {
+    editor,
+    description,
+    imageUrl,
+    publicationDate,
+    category: tag,
+    title,
+  } = news;
 
   return (
     <article
@@ -120,5 +147,43 @@ export function DefaultCard({ news, className }: NewsCardProps) {
         </Button>
       </div>
     </article>
+  );
+}
+
+export function EditCard({ news, onEdit, onRemove }: EditCardProps) {
+  return (
+    <div className="flex items-start gap-4 rounded-lg border border-gray-200 bg-white p-4 transition hover:bg-gray-50">
+      <img
+        src={news.imageUrl}
+        alt={news.title}
+        className="h-24 w-40 rounded-md object-cover"
+      />
+
+      <div className="flex flex-1 flex-col gap-1">
+        <span className="w-fit rounded-full bg-green-100 px-3 py-0.5 text-xs font-medium text-green-700">
+          {capitalizeFirstLetter(news.category)}
+        </span>
+
+        <h3 className="text-base leading-snug font-semibold">{news.title}</h3>
+
+        <p className="text-muted-foreground line-clamp-2 text-sm">
+          {news.description}
+        </p>
+
+        <span className="text-muted-foreground text-xs">
+          Por {news.editor} •{' '}
+          {new Date(news.publicationDate).toLocaleDateString('pt-BR')}
+        </span>
+      </div>
+
+      <div className="flex gap-2">
+        <Button type="button" variant="ghost" size="icon" onClick={onEdit}>
+          <Pencil className="size-4" />
+        </Button>
+        <Button type="button" variant="ghost" size="icon" onClick={onRemove}>
+          <Trash2 className="size-4 text-red-500" />
+        </Button>
+      </div>
+    </div>
   );
 }

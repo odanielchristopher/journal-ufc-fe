@@ -25,6 +25,16 @@ class UsersService {
 
     return data;
   };
+
+  update = async (input: UsersService.UpdateInput) => {
+    const { data } = await this.httpClient.put<IUser>('/users', input);
+
+    return data;
+  };
+
+  remove = async (input: UsersService.RemoveInput) => {
+    await this.httpClient.delete(`/users/${input.id}`);
+  };
 }
 
 export const usersService = new UsersService(httpClient);
@@ -37,5 +47,17 @@ export namespace UsersService {
     username: string;
     password: string;
     role: Role;
+  };
+
+  export type UpdateInput = {
+    id: number;
+    nickname: string;
+    username: string;
+    password: string;
+    role: Role;
+  };
+
+  export type RemoveInput = {
+    id: number;
   };
 }

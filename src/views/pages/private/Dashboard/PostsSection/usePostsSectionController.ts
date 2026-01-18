@@ -2,13 +2,13 @@ import { useCallback, useMemo, useState } from 'react';
 
 import type { INews } from '@app/entities/News';
 import type { Category } from '@app/enums/Category';
-import type { Order } from '@app/enums/Order';
+import { Order } from '@app/enums/Order';
 import { useNews } from '@app/hooks/useNews';
 import { normalizeText } from '@app/utils/normalizeText';
 
 export function usePostsSectionController() {
   const [category, setCategory] = useState<Category | null>(null);
-  const [order, setOrder] = useState<Order | null>(null);
+  const [order, setOrder] = useState<Order | null>(Order.DESC);
   const [search, setSearch] = useState('');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);

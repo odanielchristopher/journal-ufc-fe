@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { Order } from '@app/enums/Order';
 
 import {
@@ -16,22 +14,14 @@ interface OrderSelectProps {
 }
 
 export function OrderSelect({ value, onOrderChange }: OrderSelectProps) {
-  const [orderBy, setOrderBy] = useState<Order | null>(value ?? null);
-
-  function handleOrderChange(order: Order) {
-    setOrderBy(order);
-
-    onOrderChange?.(order);
-  }
-
   return (
     <Select
-      defaultValue={orderBy?.toString()}
+      defaultValue={value?.toString()}
       onValueChange={(order: keyof typeof Order) =>
-        handleOrderChange(Order[order])
+        onOrderChange?.(Order[order])
       }
     >
-      <SelectTrigger className="text-muted-foreground h-9 justify-between gap-2 border border-gray-300 bg-gray-100 font-normal md:w-52">
+      <SelectTrigger className="h-9 justify-between gap-2 border border-gray-300 bg-gray-100 font-normal md:w-52">
         <SelectValue placeholder="Selecione a ordem" />
       </SelectTrigger>
 

@@ -3,7 +3,7 @@ import type { AxiosInstance } from 'axios';
 import { NewsDataMapper } from '@app/datamappers/NewsDataMapper';
 import type { INews, IPersistenceNews } from '@app/entities/News';
 import type { Category } from '@app/enums/Category';
-import type { Order } from '@app/enums/Order';
+import { Order } from '@app/enums/Order';
 
 import { httpClient } from './httpClient';
 
@@ -12,13 +12,20 @@ export class NewsService {
 
   constructor(private readonly httpClient: AxiosInstance) {}
 
-  getAll = async (params: NewsService.GetAllParams = {}) => {
-    const { data } = await this.httpClient.get<IPersistenceNews[]>(
-      this.BASE_ROUTE,
-      {
-        params,
+  getAll = async ({
+    order = Order.DESC,
+    category,
+  }: NewsService.GetAllParams = {}) => {
+    const path =
+      order || category
+        ? `${this.BASE_ROUTE}/orderBy/${order}`
+        : this.BASE_ROUTE;
+
+    const { data } = await this.httpClient.get<IPersistenceNews[]>(path, {
+      params: {
+        category,
       },
-    );
+    });
 
     return data.map((news) => NewsDataMapper.toDomain(news));
   };

@@ -2,12 +2,15 @@ import { useMemo } from 'react';
 
 import type { INews } from '@app/entities/News';
 import type { Category } from '@app/enums/Category';
+import { Order } from '@app/enums/Order';
 import { useNews } from '@app/hooks/useNews';
 
 export type NewsMap = Record<Category, { title?: string; data: INews[] }>;
 
 export function useHomeController() {
-  const { news, isLoading } = useNews();
+  const { news, isLoading } = useNews({
+    order: Order.DESC,
+  });
 
   const map = useMemo(() => {
     const data: NewsMap = {

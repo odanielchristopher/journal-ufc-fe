@@ -35,6 +35,8 @@ export function EditNewsDialog({
     } catch (error) {
       console.error(error);
       toast.error('Erro ao editar postagem');
+    } finally {
+      onClose();
     }
   }
 

@@ -29,6 +29,8 @@ export function CreateNewsDialog({ isOpen, onClose }: CreateNewsDialogProps) {
     } catch (error) {
       console.error(error);
       toast.error('Erro ao criar postagem');
+    } finally {
+      onClose();
     }
   }
 

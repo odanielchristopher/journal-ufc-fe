@@ -1,6 +1,8 @@
 import { Plus, Search } from 'lucide-react';
 
+import { CategoryDropdown } from '@views/components/app/CategoryDropdown';
 import { NewsCard } from '@views/components/app/NewsCard';
+import { NewsForm } from '@views/components/app/NewsForm';
 import { OrderSelect } from '@views/components/app/OrderSelect';
 import { Button } from '@views/components/ui/Button';
 import {
@@ -10,8 +12,6 @@ import {
   DialogTitle,
 } from '@views/components/ui/Dialog';
 import { Input } from '@views/components/ui/Input';
-
-import { CategoryDropdown } from '../CategoryDropdown';
 
 import { usePostsSectionController } from './usePostsSectionController';
 
@@ -88,14 +88,13 @@ export function PostsSection() {
         ))}
       </div>
 
-      <Dialog open={isCreateDialogOpen} onOpenChange={handleIsCreateDialogOpen}>
+      <Dialog open={true} onOpenChange={handleIsCreateDialogOpen}>
         <DialogContent className="w-[50vw] max-w-none sm:max-w-none">
           <DialogHeader>
             <DialogTitle>Nova Postagem</DialogTitle>
           </DialogHeader>
 
-          {/* formulário entra aqui depois */}
-          <div className="h-100" />
+          <NewsForm />
         </DialogContent>
       </Dialog>
     </div>

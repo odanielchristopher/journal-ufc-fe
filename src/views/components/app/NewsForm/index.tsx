@@ -1,0 +1,77 @@
+import { Controller } from 'react-hook-form';
+
+import { Button } from '@views/components/ui/Button';
+import { Input } from '@views/components/ui/Input';
+import { Textarea } from '@views/components/ui/Textarea';
+
+import { CategoryDropdown } from '../CategoryDropdown';
+
+import {
+  useNewsFormController,
+  type IUseNewsFormController,
+} from './useNewsFormController';
+
+interface NewsFormProps extends IUseNewsFormController {
+  isLoading?: boolean;
+}
+
+export function NewsForm({ isLoading, ...props }: NewsFormProps) {
+  const { formState, form, handleSubmit, register } =
+    useNewsFormController(props);
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <Input
+        className="bg-white"
+        placeholder="Título*"
+        error={formState.errors.title?.message}
+        {...register('title')}
+      />
+
+      <Textarea
+        className="bg-white"
+        placeholder="Digite um breve resumo da postagem*"
+        error={formState.errors.description?.message}
+        {...register('description')}
+      />
+
+      <Textarea
+        className="bg-white"
+        placeholder="Digite o conteúdo da postagem*"
+        error={formState.errors.content?.message}
+        {...register('content')}
+      />
+
+      <Input
+        className="bg-white"
+        placeholder="URL da imagem*"
+        error={formState.errors.imageUrl?.message}
+        {...register('imageUrl')}
+      />
+
+      <Controller
+        control={form.control}
+        name="category"
+        render={({ field: { onChange, value } }) => (
+          <CategoryDropdown
+            isFilter={false}
+            className="w-full! bg-white hover:bg-white"
+            value={value}
+            placeholder="Selecione uma categoria*"
+            onCategoryChange={onChange}
+            error={formState.errors.category?.message}
+          />
+        )}
+      />
+
+      <Button
+        type="submit"
+        className="mt-4 w-full"
+        disabled={isLoading}
+        isLoading={isLoading}
+      >
+        Criar nova postagem
+      </Button>
+    </form>
+  );
+}

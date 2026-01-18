@@ -27,7 +27,7 @@ export function PostsSection() {
   return (
     <div className="space-y-8">
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-2xl font-semibold">Gerenciar Postagens</h2>
             <p className="text-muted-foreground text-sm">
@@ -37,7 +37,7 @@ export function PostsSection() {
 
           <Button
             type="button"
-            className="gap-2"
+            className="gap-2 self-start sm:self-auto whitespace-nowrap"
             onClick={() => handleIsCreateDialogOpen(true)}
           >
             <Plus className="size-4" />
@@ -85,7 +85,10 @@ export function PostsSection() {
       </div>
 
       <Dialog open={isCreateDialogOpen} onOpenChange={handleIsCreateDialogOpen}>
-        <DialogContent className="w-[50vw] max-w-none sm:max-w-none">
+        <DialogContent className="
+            w-[95vw] max-w-[640px]
+            sm:w-full
+          ">
           <DialogHeader>
             <DialogTitle>Nova Postagem</DialogTitle>
           </DialogHeader>

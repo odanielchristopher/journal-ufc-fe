@@ -1,14 +1,21 @@
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
+import { loadById } from '../../../../app/hooks/useNews/loadById';
 
 export type ViewNewsParams = {
   newsId: string;
 };
 
 export function useViewNewsParams() {
-  const params = useParams<ViewNewsParams>();
+  const navigate = useNavigate();
+  const { newsId } = useParams<ViewNewsParams>();
+  const handleBack = () => navigate(-1);
+  const { news, isLoading } = loadById({
+    id: newsId || '',
+  });
 
-  if (!params)
-    throw new Error('This page need news id! Please config routes correctly');
-
-  return params as ViewNewsParams;
+  return {
+    data: news,
+    isLoading,
+    handleBack,
+  };
 }

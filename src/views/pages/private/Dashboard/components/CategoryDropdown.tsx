@@ -1,7 +1,6 @@
 import { ChevronDown, ListFilter } from 'lucide-react';
 import { useMemo, useState } from 'react';
 
-import { Category } from '@app/entities/News';
 import { capitalizeFirstLetter } from '@app/utils/capitalizeFirstLetter';
 import { Button } from '@views/components/ui/Button';
 import {
@@ -12,21 +11,21 @@ import {
 } from '@views/components/ui/DropdownMenu';
 
 interface CategoryDropdownProps {
-  onCategoryChange?(category: Category | null): void;
+  categories: Record<string, string>;
+  onCategoryChange?(category: string | null): void;
 }
 
-export function CategoryDropdown({ onCategoryChange }: CategoryDropdownProps) {
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+export function CategoryDropdown({ categories, onCategoryChange }: CategoryDropdownProps) {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(
     null,
   );
 
-  const categories = useMemo(() => {
-    return Object.values(Category);
-  }, []);
+  const categoryValues = useMemo(() => {
+    return Object.values(categories);
+  }, [categories]);
 
-  function handleCategory(category: Category | null) {
+  function handleCategory(category: string | null) {
     setSelectedCategory(category);
-
     onCategoryChange?.(category);
   }
 
@@ -54,7 +53,7 @@ export function CategoryDropdown({ onCategoryChange }: CategoryDropdownProps) {
           Todas categorias
         </DropdownMenuItem>
 
-        {categories.map((cat) => (
+        {categoryValues.map((cat) => (
           <DropdownMenuItem key={cat} onClick={() => handleCategory(cat)}>
             {capitalizeFirstLetter(cat.toLowerCase())}
           </DropdownMenuItem>

@@ -119,7 +119,7 @@ export function Dashboard() {
 
               <TabsContent value="users" className="m-0">
                 <div className="text-muted-foreground">
-                  Gerenciamento de usuários
+                  <UsersSection />
                 </div>
               </TabsContent>
             </div>

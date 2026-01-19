@@ -1,12 +1,12 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from "react";
 
-import { Category } from '@app/entities/News';
-import { useNews } from '@app/hooks/useNews';
-import { normalizeText } from '@app/utils/normalizeText';
+import { Category } from "@app/entities/News";
+import { useNews } from "@app/hooks/useNews";
+import { normalizeText } from "@app/utils/normalizeText";
 
 export function usePostsSectionController() {
   const [category, setCategory] = useState<Category | null>(null);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
   const [newsToDelete, setNewsToDelete] = useState<number | null>(null);
@@ -30,7 +30,7 @@ export function usePostsSectionController() {
 
   const categories = useMemo(() => {
     return Object.values(Category);
-  }, [news]);
+  }, []);
 
   const handleCategory = useCallback((category: Category | null) => {
     setCategory(category);

@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   });
   const queryClient = useQueryClient();
 
-  const { isError, isFetching, isSuccess, data } = useQuery({
+  const { isError, isFetching, isSuccess, data, error } = useQuery({
     queryKey: AUTH_QUERY_KEY(),
     queryFn: usersService.me,
     staleTime: Infinity,
@@ -74,13 +74,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(`Bem-vindo, ${capitalizeFirstLetter(data.name)}!`);
+      toast.success(`Bem-vindo, ${capitalizeFirstLetter(data.nickname)}!`);
     }
   }, [isSuccess, data]);
 
   useEffect(() => {
     if (isError) {
       toast.error('Sua sessão expirou!');
+      console.log(error);
       signout();
     }
   }, [isError, signout]);

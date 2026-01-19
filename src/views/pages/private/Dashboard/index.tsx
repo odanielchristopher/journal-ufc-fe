@@ -1,12 +1,11 @@
 import {
   HomeIcon,
   LayoutDashboardIcon,
-  LogOutIcon,
   LayoutGrid,
+  LogOutIcon,
   Newspaper,
   Users,
 } from 'lucide-react';
-
 import { Link, Navigate } from 'react-router';
 
 import { useAuth } from '@app/hooks/useAuth';
@@ -19,8 +18,9 @@ import {
   TabsTrigger,
 } from '@views/components/ui/Tabs';
 
+import { PostsSection } from '../Dashboard/PostsSection';
+
 import { UserInfoContainer } from './components/UserInfoContainer';
-import { PostsSection } from '../Dashboard/components/PostsSection';
 
 export function Dashboard() {
   const { user, signout } = useAuth();
@@ -41,7 +41,7 @@ export function Dashboard() {
           <Button type="button" variant="outline" className="bg-white" asChild>
             <Link to={routes.home}>
               <HomeIcon className="size-5" />
-              Ir para o site
+              <span className="max-sm:hidden">Ir para o site</span>
             </Link>
           </Button>
 
@@ -52,7 +52,7 @@ export function Dashboard() {
             onClick={signout}
           >
             <LogOutIcon className="size-5" />
-            Sair
+            <span className="max-sm:hidden">Sair</span>
           </Button>
         </div>
       </header>
@@ -60,51 +60,33 @@ export function Dashboard() {
       <main className="flex justify-center p-6">
         <div className="w-[80%] space-y-6">
           <Tabs defaultValue="posts" className="w-full space-y-6">
-              <TabsList className="flex w-full rounded-full bg-gray-200 p-1 h-10">
-                <TabsTrigger
-                  value="overview"
-                  className="
-                    flex flex-1 items-center justify-center gap-2 rounded-full
-                    text-sm font-medium text-gray-600
-                    data-[state=active]:bg-white
-                    data-[state=active]:text-gray-900
-                    data-[state=active]:shadow-sm
-                  "
-                >
-                  <LayoutGrid className="size-4" />
-                  Visão Geral
-                </TabsTrigger>
+            <TabsList className="flex h-10 w-full rounded-full bg-gray-200 p-1">
+              <TabsTrigger
+                value="overview"
+                className="flex flex-1 items-center justify-center gap-2 rounded-full text-sm font-medium text-gray-600 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm"
+              >
+                <LayoutGrid className="size-4" />
+                Visão Geral
+              </TabsTrigger>
 
-                <TabsTrigger
-                  value="posts"
-                  className="
-                    flex flex-1 items-center justify-center gap-2 rounded-full
-                    text-sm font-medium text-gray-600
-                    data-[state=active]:bg-white
-                    data-[state=active]:text-gray-900
-                    data-[state=active]:shadow-sm
-                  "
-                >
-                  <Newspaper className="size-4" />
-                  Postagens
-                </TabsTrigger>
+              <TabsTrigger
+                value="posts"
+                className="flex flex-1 items-center justify-center gap-2 rounded-full text-sm font-medium text-gray-600 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm"
+              >
+                <Newspaper className="size-4" />
+                Postagens
+              </TabsTrigger>
 
-                <TabsTrigger
-                  value="users"
-                  className="
-                    flex flex-1 items-center justify-center gap-2 rounded-full
-                    text-sm font-medium text-gray-600
-                    data-[state=active]:bg-white
-                    data-[state=active]:text-gray-900
-                    data-[state=active]:shadow-sm
-                  "
-                >
-                  <Users className="size-4" />
-                  Usuários
-                </TabsTrigger>
-              </TabsList>
+              <TabsTrigger
+                value="users"
+                className="flex flex-1 items-center justify-center gap-2 rounded-full text-sm font-medium text-gray-600 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm"
+              >
+                <Users className="size-4" />
+                Usuários
+              </TabsTrigger>
+            </TabsList>
 
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="rounded-lg bg-white p-6 shadow-sm">
               <TabsContent value="posts" className="m-0">
                 <PostsSection />
               </TabsContent>

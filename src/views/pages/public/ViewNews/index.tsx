@@ -1,20 +1,20 @@
+import { ArrowLeft, Calendar, Tag, User } from 'lucide-react';
 import { useMemo } from 'react';
-import { Calendar, User, Tag, ArrowLeft } from 'lucide-react';
 import { Button } from '../../../components/ui/Button';
-import { useViewNewsParams } from './useViewNewsParams';
 import { ViewNewsSkeleton } from './components/SectionSkeleton';
+import { useViewNewsParams } from './useViewNewsParams';
 
 export function ViewNews() {
   const { data, handleBack, isLoading } = useViewNewsParams();
   // vou deixar essa formatacao de data aqui mesmo, nao sei como ela realmente vai ser passada no front
   const formattedDate = useMemo(() => {
-    if (!data?.publicationDate) return '';
-    return new Date(data.publicationDate).toLocaleDateString('pt-BR', {
+    if (!data?.publishedDate) return '';
+    return new Date(data.publishedDate).toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: 'long',
       year: 'numeric',
     });
-  }, [data?.publicationDate]);
+  }, [data?.publishedDate]);
 
   if (isLoading) {
     return <ViewNewsSkeleton />;

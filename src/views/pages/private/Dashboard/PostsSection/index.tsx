@@ -1,31 +1,50 @@
 import { Plus, Search } from 'lucide-react';
 
+import { CategoryDropdown } from '@views/components/app/CategoryDropdown';
 import { NewsCard } from '@views/components/app/NewsCard';
+import { OrderSelect } from '@views/components/app/OrderSelect';
 import { Button } from '@views/components/ui/Button';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@views/components/ui/Dialog';
 import { Input } from '@views/components/ui/Input';
+import { Skeleton } from '@views/components/ui/Skeleton';
 
-import { CategoryDropdown } from '../CategoryDropdown';
-
+import { CreateNewsDialog } from './CreateNewsDialog';
+import { EditNewsDialog } from './EditNewsDialog';
 import { usePostsSectionController } from './usePostsSectionController';
 
 export function PostsSection() {
   const {
     search,
+    order,
     filteredNews,
+    isEditDialogOpen,
     isCreateDialogOpen,
     isLoading,
+    postToEdit,
+    category,
+    handleNewsOrder,
     handleIsCreateDialogOpen,
     handleSearch,
+    handleCloseEditDialog,
+    handleOpenEditDialog,
+    handleCategory,
   } = usePostsSectionController();
 
   return (
     <div className="space-y-8">
+      {isCreateDialogOpen && (
+        <CreateNewsDialog
+          isOpen={isCreateDialogOpen}
+          onClose={() => handleIsCreateDialogOpen(false)}
+        />
+      )}
+
+      {isEditDialogOpen && postToEdit && (
+        <EditNewsDialog
+          news={postToEdit}
+          isOpen={isEditDialogOpen}
+          onClose={handleCloseEditDialog}
+        />
+      )}
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
@@ -58,13 +77,27 @@ export function PostsSection() {
             <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-gray-400" />
           </div>
 
-          <CategoryDropdown />
+          <CategoryDropdown
+            value={category ?? undefined}
+            onCategoryChange={handleCategory}
+          />
+
+          <OrderSelect
+            value={order ?? undefined}
+            onOrderChange={handleNewsOrder}
+          />
         </div>
       </div>
 
       <div className="space-y-4">
         {isLoading && (
-          <p className="text-muted-foreground text-sm">Carregando...</p>
+          <>
+            <Skeleton className="h-40" />
+            <Skeleton className="h-40" />
+            <Skeleton className="h-40" />
+            <Skeleton className="h-40" />
+            <Skeleton className="h-40" />
+          </>
         )}
 
         {!isLoading && filteredNews.length === 0 && (
@@ -73,27 +106,17 @@ export function PostsSection() {
           </p>
         )}
 
-        {filteredNews.map((item) => (
-          <NewsCard
-            key={item.id}
-            news={item}
-            variant="edit"
-            onEdit={() => console.log('Editando o conteudo')}
-            onRemove={() => console.log('Apagando o conteudo')}
-          />
-        ))}
+        {!isLoading &&
+          filteredNews.map((item) => (
+            <NewsCard
+              key={item.id}
+              news={item}
+              variant="edit"
+              onEdit={() => handleOpenEditDialog(item)}
+              onRemove={() => console.log('Apagando o conteudo')}
+            />
+          ))}
       </div>
-
-      <Dialog open={isCreateDialogOpen} onOpenChange={handleIsCreateDialogOpen}>
-        <DialogContent className="w-[50vw] max-w-none sm:max-w-none">
-          <DialogHeader>
-            <DialogTitle>Nova Postagem</DialogTitle>
-          </DialogHeader>
-
-          {/* formulário entra aqui depois */}
-          <div className="h-100" />
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }

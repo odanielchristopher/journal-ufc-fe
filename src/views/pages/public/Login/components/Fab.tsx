@@ -24,12 +24,12 @@ export function Fab({ className }: { className?: string }) {
 
         <p className="max-w-xs">
           <strong>Email: </strong>
-          <span>joao@mail.com</span>
+          <span>admin@email.com</span>
         </p>
 
         <p className="max-w-xs">
           <strong>Senha: </strong>
-          <span>joao12</span>
+          <span>admin123</span>
         </p>
       </DropdownMenuContent>
     </DropdownMenu>

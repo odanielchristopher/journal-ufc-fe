@@ -1,25 +1,33 @@
 import type { INews, IPersistenceNews } from '@app/entities/News';
 
 export class NewsDataMapper {
-  static toPersistence(
-    domainNews: Omit<INews, 'id'>,
+  static toCreate(
+    domainNews: Omit<INews, 'id' | 'editor'>,
   ): Omit<IPersistenceNews, 'publishedBy'> {
-    const {
-      title,
-      imageUrl,
-      description,
-      content,
-      publicationDate,
-      category: tag,
-    } = domainNews;
+    const { title, imageUrl, description, content, publishedDate, category } =
+      domainNews;
 
     return {
       title,
-      imageUrl,
+      imagemUrl: imageUrl,
       description,
       text: content,
-      category: tag,
-      publicationDate,
+      category,
+      publishedDate: publishedDate.toISOString(),
+    };
+  }
+
+  static toUpdate(
+    domainNews: Omit<INews, 'id' | 'editor' | 'publishedDate'>,
+  ): Omit<IPersistenceNews, 'publishedBy' | 'publishedDate'> {
+    const { title, imageUrl, description, content, category } = domainNews;
+
+    return {
+      title,
+      imagemUrl: imageUrl,
+      description,
+      category,
+      text: content,
     };
   }
 
@@ -29,10 +37,10 @@ export class NewsDataMapper {
       text,
       title,
       category,
-      imageUrl,
+      imagemUrl: imageUrl,
       description,
       publishedBy,
-      publicationDate,
+      publishedDate,
     } = persistenceNews;
 
     return {
@@ -42,7 +50,7 @@ export class NewsDataMapper {
       content: text,
       imageUrl,
       description,
-      publicationDate,
+      publishedDate: new Date(publishedDate),
       editor: publishedBy,
     };
   }

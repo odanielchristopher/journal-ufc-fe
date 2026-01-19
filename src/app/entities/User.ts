@@ -1,18 +1,8 @@
-export enum Category {
-  ADMIN = 'ADMIN',
-  EDITOR = 'EDITOR'
-};
+import type { Role } from '@app/enums/Role';
 
 export interface IUser {
   id: string;
-  name: string;
-  email: string;
-  category: Category;
-}
-
-export interface IPersistenceUser {
-  id?: string;
-  name: string;
-  email: string;
-  category: Category;
+  nickname: string; // name
+  username: string; // email
+  role: Role;
 }

@@ -29,7 +29,8 @@ export function useLoginController() {
     try {
       const { accessToken } = await login(data);
       signin(accessToken);
-    } catch {
+    } catch (error) {
+      console.error(error);
       toast.error('Credenciais inválidas!');
     }
   });

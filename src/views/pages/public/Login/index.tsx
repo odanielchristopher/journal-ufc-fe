@@ -31,8 +31,8 @@ export function Login() {
           <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
             <Input
               placeholder="E-mail"
-              error={errors.email?.message}
-              {...register('email')}
+              error={errors.username?.message}
+              {...register('username')}
             />
 
             <Input

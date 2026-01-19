@@ -1,12 +1,11 @@
 import {
   HomeIcon,
   LayoutDashboardIcon,
-  LogOutIcon,
   LayoutGrid,
+  LogOutIcon,
   Newspaper,
   Users,
 } from 'lucide-react';
-
 import { Link, Navigate } from 'react-router';
 
 import { useAuth } from '@app/hooks/useAuth';
@@ -19,8 +18,9 @@ import {
   TabsTrigger,
 } from '@views/components/ui/Tabs';
 
+import { PostsSection } from '../Dashboard/PostsSection';
+
 import { UserInfoContainer } from './components/UserInfoContainer';
-import { PostsSection } from '../Dashboard/components/PostsSection';
 
 export function Dashboard() {
   const { user, signout } = useAuth();
@@ -52,7 +52,7 @@ export function Dashboard() {
             onClick={signout}
           >
             <LogOutIcon className="size-5" />
-            Sair
+            <span className="max-sm:hidden">Sair</span>
           </Button>
         </div>
       </header>

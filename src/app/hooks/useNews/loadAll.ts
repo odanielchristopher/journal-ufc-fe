@@ -9,8 +9,9 @@ import type { UseNewsOutput } from './types';
 export function loadAll(
   input: NewsService.GetAllParams,
 ): UseNewsOutput<INews[]> {
+  const { category, order } = input;
   const { data, isFetching } = useQuery({
-    queryKey: NEWS_QUERY_KEY('get-all'),
+    queryKey: NEWS_QUERY_KEY('get-all', category, order),
     queryFn: () => newsService.getAll(input),
   });
 

@@ -1,30 +1,36 @@
 import { useCallback, useMemo, useState } from "react";
 
-import { Category } from "@app/entities/News";
-import { useNews } from "@app/hooks/useNews";
-import { normalizeText } from "@app/utils/normalizeText";
+import type { INews } from '@app/entities/News';
+import type { Category } from '@app/enums/Category';
+import { Order } from '@app/enums/Order';
+import { useNews } from '@app/hooks/useNews';
+import { normalizeText } from '@app/utils/normalizeText';
 
 export function usePostsSectionController() {
   const [category, setCategory] = useState<Category | null>(null);
-  const [search, setSearch] = useState("");
+  const [order, setOrder] = useState<Order | null>(Order.DESC);
+  const [search, setSearch] = useState('');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [postToEdit, setPostToEdit] = useState<INews | null>(null);
 
   const [newsToDelete, setNewsToDelete] = useState<number | null>(null);
 
   const { isLoading, news } = useNews();
+  const { isLoading, news } = useNews({
+    category: category ?? undefined,
+    order: order ?? undefined,
+  });
 
   const filteredNews = useMemo(() => {
     const normalizedSearch = normalizeText(search);
 
     return news.filter((item) => {
-      const matchesCategory =
-        !category || item.category === category.toLowerCase();
-
       const matchesSearch =
         normalizeText(item.title).includes(normalizedSearch) ||
         normalizeText(item.description).includes(normalizedSearch);
 
-      return matchesCategory && matchesSearch;
+      return matchesSearch;
     });
   }, [news, category, search]);
 
@@ -40,6 +46,16 @@ export function usePostsSectionController() {
     setIsCreateDialogOpen(open);
   }, []);
 
+  function handleOpenEditDialog(news: INews) {
+    setIsEditDialogOpen(true);
+    setPostToEdit(news);
+  }
+
+  function handleCloseEditDialog() {
+    setIsEditDialogOpen(false);
+    setPostToEdit(null);
+  }
+
   const handleSearch = useCallback((searchTerm: string) => {
     setSearch(searchTerm);
   }, []);
@@ -50,18 +66,26 @@ export function usePostsSectionController() {
 
   const handleResetNewsToDelete = useCallback(() => {
     setNewsToDelete(null);
+    
+  const handleNewsOrder = useCallback((newsOrder: Order | null) => {
+    setOrder(newsOrder);
   }, []);
 
   return {
     search,
-    categories,
+    order,
     filteredNews,
     isLoading,
+    postToEdit,
     category,
     isCreateDialogOpen,
     newsToDelete,
+    isEditDialogOpen,
+    handleNewsOrder,
     handleSearch,
     handleCategory,
+    handleOpenEditDialog,
+    handleCloseEditDialog,
     handleIsCreateDialogOpen,
     handleSetNewsToDelete,
     handleResetNewsToDelete,

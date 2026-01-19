@@ -29,19 +29,37 @@ import { Category } from "@app/entities/News";
 export function PostsSection() {
   const {
     search,
+    order,
     filteredNews,
+    isEditDialogOpen,
     isCreateDialogOpen,
     isLoading,
-    newsToDelete,
+    postToEdit,
+    category,
+    handleNewsOrder,
     handleIsCreateDialogOpen,
     handleSearch,
+    handleCloseEditDialog,
+    handleOpenEditDialog,
     handleCategory,
-    handleSetNewsToDelete,
-    handleResetNewsToDelete,
   } = usePostsSectionController();
 
   return (
     <div className="space-y-8">
+      {isCreateDialogOpen && (
+        <CreateNewsDialog
+          isOpen={isCreateDialogOpen}
+          onClose={() => handleIsCreateDialogOpen(false)}
+        />
+      )}
+
+      {isEditDialogOpen && postToEdit && (
+        <EditNewsDialog
+          news={postToEdit}
+          isOpen={isEditDialogOpen}
+          onClose={handleCloseEditDialog}
+        />
+      )}
       <div className="space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -73,16 +91,28 @@ export function PostsSection() {
             />
             <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-gray-400" />
           </div>
-            <CategoryDropdown
-              categories={Category}
-              onCategoryChange={handleCategory}
-            />
+
+          <CategoryDropdown
+            value={category ?? undefined}
+            onCategoryChange={handleCategory}
+          />
+
+          <OrderSelect
+            value={order ?? undefined}
+            onOrderChange={handleNewsOrder}
+          />
         </div>
       </div>
 
       <div className="space-y-4">
         {isLoading && (
-          <p className="text-muted-foreground text-sm">Carregando...</p>
+          <>
+            <Skeleton className="h-40" />
+            <Skeleton className="h-40" />
+            <Skeleton className="h-40" />
+            <Skeleton className="h-40" />
+            <Skeleton className="h-40" />
+          </>
         )}
 
         {!isLoading && filteredNews.length === 0 && (

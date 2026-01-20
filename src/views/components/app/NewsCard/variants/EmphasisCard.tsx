@@ -38,6 +38,10 @@ export function EmphasisCard({
           src={imageUrl}
           alt="Noticia"
           className="h-full rounded-l-xl object-cover"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = '/placeholder.svg';
+          }}
         />
 
         <span className="absolute top-3 left-3 rounded-sm bg-teal-600 px-5 py-2 font-semibold text-white">

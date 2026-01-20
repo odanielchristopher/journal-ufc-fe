@@ -16,16 +16,18 @@ export class NewsService {
     order = Order.DESC,
     category,
   }: NewsService.GetAllParams = {}) => {
-    const path =
-      order || category
-        ? `${this.BASE_ROUTE}/orderBy/${order}`
-        : this.BASE_ROUTE;
-
-    const { data } = await this.httpClient.get<IPersistenceNews[]>(path, {
-      params: {
-        category,
+    const { data } = await this.httpClient.get<IPersistenceNews[]>(
+      this.BASE_ROUTE,
+      {
+        params: {
+          category,
+          ...(order && {
+            _sort: 'publicationDate',
+            _order: order === Order.DESC ? 'desc' : 'asc',
+          }),
+        },
       },
-    });
+    );
 
     return data.map((news) => NewsDataMapper.toDomain(news));
   };

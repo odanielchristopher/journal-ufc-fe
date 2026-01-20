@@ -1,8 +1,6 @@
 import { ChevronDown, ListFilter } from 'lucide-react';
 import { useMemo, useState } from 'react';
 
-import { CategoryDataMapper } from '@app/datamappers/CategoryDataMapper';
-import { Category } from '@app/enums/Category';
 import { cn } from '@app/lib/utils';
 import { Button } from '@views/components/ui/Button';
 import {
@@ -14,35 +12,53 @@ import {
 
 import { FieldError } from '../ui/FieldError';
 
-interface CategoryDropdownProps {
-  value?: Category;
+type EnumObject = Record<string, string | number>;
+
+interface CategoryDropdownProps<T extends EnumObject> {
+  value?: T[keyof T];
   className?: string;
   error?: string;
   isFilter?: boolean;
   placeholder?: string;
-  onCategoryChange?(category: Category | null): void;
+  enumObj: T;
+  labelMapper?: (value: T[keyof T]) => string;
+  onValueChange?(value: T[keyof T] | null): void;
 }
 
-export function CategoryDropdown({
+export function CategoryDropdown<T extends EnumObject>({
   value,
   error,
   className,
   placeholder,
   isFilter = true,
-  onCategoryChange,
-}: CategoryDropdownProps) {
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    value ?? null,
-  );
+  enumObj,
+  labelMapper = (val) => String(val),
+  onValueChange,
+}: CategoryDropdownProps<T>) {
+  const [selectedValue, setSelectedValue] = useState<T[keyof T] | null>(value ?? null);
 
-  const categories = useMemo(() => {
-    return Object.values(Category);
-  }, []);
+  const enumValues = useMemo(() => {
+    if (!enumObj) {
+      console.warn('Enum object is undefined');
+      return [];
+    }
 
-  function handleCategory(category: Category | null) {
-    setSelectedCategory(category);
+    try {
+      const values = Object.values(enumObj as any);
+      
+      const stringValues = values.filter(
+        (value) => typeof value === 'string'
+      ) as T[keyof T][];
+      
+      return stringValues;
+    } catch {
+      return [];
+    }
+  }, [enumObj]);
 
-    onCategoryChange?.(category);
+  function handleValueChange(value: T[keyof T] | null) {
+    setSelectedValue(value);
+    onValueChange?.(value);
   }
 
   return (
@@ -54,7 +70,7 @@ export function CategoryDropdown({
             variant="outline"
             className={cn(
               'text-muted-foreground h-9 justify-between gap-2 border border-gray-300 bg-gray-100 font-normal md:w-52',
-              selectedCategory && 'text-black',
+              selectedValue && 'text-black',
               className,
             )}
           >
@@ -63,14 +79,14 @@ export function CategoryDropdown({
                 <ListFilter
                   className={cn(
                     'size-4 text-gray-500',
-                    selectedCategory && 'text-black',
+                    selectedValue && 'text-black',
                   )}
                 />
               )}
 
-              {selectedCategory
-                ? CategoryDataMapper.toDomain(selectedCategory)
-                : (placeholder ?? 'Todas categorias')}
+              {selectedValue
+                ? labelMapper(selectedValue)
+                : (placeholder ?? 'Todos')}
             </div>
 
             <ChevronDown className="size-4 opacity-50" />
@@ -82,19 +98,19 @@ export function CategoryDropdown({
 
       <DropdownMenuContent align="start" className="w-52">
         {isFilter && (
-          <DropdownMenuItem onClick={() => handleCategory(null)}>
-            Todas categorias
+          <DropdownMenuItem onClick={() => handleValueChange(null)}>
+            {placeholder ?? 'Todos'}
           </DropdownMenuItem>
         )}
 
-        {categories.map((cat) => (
+        {enumValues.map((enumValue) => (
           <DropdownMenuItem
-            key={cat}
+            key={String(enumValue)}
             onClick={() =>
-              handleCategory(selectedCategory !== cat ? cat : null)
+              handleValueChange(selectedValue !== enumValue ? enumValue : null)
             }
           >
-            {CategoryDataMapper.toDomain(cat)}
+            {labelMapper(enumValue)}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

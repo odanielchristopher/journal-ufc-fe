@@ -9,7 +9,7 @@ export class NewsDataMapper {
 
     return {
       title,
-      imagemUrl: imageUrl,
+      imageUrl: imageUrl,
       description,
       text: content,
       category,
@@ -24,7 +24,7 @@ export class NewsDataMapper {
 
     return {
       title,
-      imagemUrl: imageUrl,
+      imageUrl: imageUrl,
       description,
       category,
       text: content,
@@ -37,7 +37,7 @@ export class NewsDataMapper {
       text,
       title,
       category,
-      imagemUrl: imageUrl,
+      imageUrl,
       description,
       publishedBy,
       publishedDate,
@@ -48,7 +48,7 @@ export class NewsDataMapper {
       category: category,
       title,
       content: text,
-      imageUrl,
+      imageUrl: imageUrl,
       description,
       publishedDate: new Date(publishedDate),
       editor: publishedBy,

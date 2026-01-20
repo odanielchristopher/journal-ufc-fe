@@ -1,15 +1,17 @@
-import { Plus, Search } from 'lucide-react';
+import { Plus, Search } from "lucide-react";
+import { Skeleton } from "@views/components/ui/Skeleton";
+import { NewsCard } from "@views/components/app/NewsCard";
+import { Button } from "@views/components/ui/Button";
+import { Input } from "@views/components/ui/Input";
+import { CategoryDropdown } from "@views/components/app/CategoryDropdown";
+import { OrderSelect } from "@views/components/app/OrderSelect";
+import { CreateNewsDialog } from "./CreateNewsDialog";
+import { EditNewsDialog } from "./EditNewsDialog";
+import { DeleteNewsDialog } from "./DeleteNewsDialog";
+import { Category } from '@app/enums/Category';
+import { CategoryDataMapper } from '@app/datamappers/CategoryDataMapper';
 
-import { CategoryDropdown } from '@views/components/app/CategoryDropdown';
-import { NewsCard } from '@views/components/app/NewsCard';
-import { OrderSelect } from '@views/components/app/OrderSelect';
-import { Button } from '@views/components/ui/Button';
-import { Input } from '@views/components/ui/Input';
-import { Skeleton } from '@views/components/ui/Skeleton';
-
-import { CreateNewsDialog } from './CreateNewsDialog';
-import { EditNewsDialog } from './EditNewsDialog';
-import { usePostsSectionController } from './usePostsSectionController';
+import { usePostsSectionController } from "./usePostsSectionController";
 
 export function PostsSection() {
   const {
@@ -21,32 +23,21 @@ export function PostsSection() {
     isLoading,
     postToEdit,
     category,
+    newsToDelete,
     handleNewsOrder,
     handleIsCreateDialogOpen,
     handleSearch,
     handleCloseEditDialog,
     handleOpenEditDialog,
     handleCategory,
+    handleSetNewsToDelete,
+    handleResetNewsToDelete,
   } = usePostsSectionController();
 
   return (
     <div className="space-y-8">
-      {isCreateDialogOpen && (
-        <CreateNewsDialog
-          isOpen={isCreateDialogOpen}
-          onClose={() => handleIsCreateDialogOpen(false)}
-        />
-      )}
-
-      {isEditDialogOpen && postToEdit && (
-        <EditNewsDialog
-          news={postToEdit}
-          isOpen={isEditDialogOpen}
-          onClose={handleCloseEditDialog}
-        />
-      )}
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-2xl font-semibold">Gerenciar Postagens</h2>
             <p className="text-muted-foreground text-sm">
@@ -56,7 +47,7 @@ export function PostsSection() {
 
           <Button
             type="button"
-            className="gap-2"
+            className="gap-2 self-start sm:self-auto whitespace-nowrap"
             onClick={() => handleIsCreateDialogOpen(true)}
           >
             <Plus className="size-4" />
@@ -79,7 +70,15 @@ export function PostsSection() {
 
           <CategoryDropdown
             value={category ?? undefined}
-            onCategoryChange={handleCategory}
+            enumObj={{
+              DESTAQUE: 'DESTAQUE',
+              EXTENSAO: 'EXTENSAO', 
+              PESQUISA: 'PESQUISA',
+              COMUNIDADE: 'COMUNIDADE',
+            }}
+            labelMapper={(cat) => CategoryDataMapper.toDomain(cat as Category)}
+            onValueChange={handleCategory}
+            placeholder="Todas categorias"
           />
 
           <OrderSelect
@@ -106,17 +105,35 @@ export function PostsSection() {
           </p>
         )}
 
-        {!isLoading &&
-          filteredNews.map((item) => (
-            <NewsCard
-              key={item.id}
-              news={item}
-              variant="edit"
-              onEdit={() => handleOpenEditDialog(item)}
-              onRemove={() => console.log('Apagando o conteudo')}
-            />
-          ))}
+        {filteredNews.map((item) => (
+          <NewsCard
+            key={item.id}
+            news={item}
+            variant="edit"
+            onEdit={() => handleOpenEditDialog(item)}
+            onRemove={() => handleSetNewsToDelete(item.id)}
+          />
+        ))}
       </div>
+
+      <CreateNewsDialog
+        isOpen={isCreateDialogOpen}
+        onClose={() => handleIsCreateDialogOpen(false)}
+      />
+
+      {postToEdit && (
+        <EditNewsDialog
+          news={postToEdit}
+          isOpen={isEditDialogOpen}
+          onClose={handleCloseEditDialog}
+        />
+      )}
+
+      <DeleteNewsDialog
+        newsId={newsToDelete}
+        isOpen={!!newsToDelete}
+        onClose={handleResetNewsToDelete}
+      />
     </div>
   );
 }

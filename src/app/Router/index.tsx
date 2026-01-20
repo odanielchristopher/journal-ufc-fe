@@ -13,7 +13,7 @@ import { routesParams } from './routesParams';
 export function Router() {
   return (
     <Routes>
-      <Route element={<AuthGuard isPrivate />}>
+      <Route element={<AuthGuard isPrivate={false} />}>
         <Route path={routes.dashboard} element={<Dashboard />} />
       </Route>
 

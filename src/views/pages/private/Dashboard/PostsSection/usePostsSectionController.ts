@@ -1,22 +1,24 @@
-import { useCallback, useMemo, useState } from 'react';
+// hooks/usePostsSectionController.ts
+import { useCallback, useMemo, useState } from "react";
 
 import type { INews } from '@app/entities/News';
-import type { Category } from '@app/enums/Category';
+import { Category } from '@app/enums/Category';
 import { Order } from '@app/enums/Order';
 import { useNews } from '@app/hooks/useNews';
 import { normalizeText } from '@app/utils/normalizeText';
 
 export function usePostsSectionController() {
   const [category, setCategory] = useState<Category | null>(null);
-  const [order, setOrder] = useState<Order | null>(Order.DESC);
+  const [order, setOrder] = useState<Order>(Order.DESC);
   const [search, setSearch] = useState('');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [postToEdit, setPostToEdit] = useState<INews | null>(null);
+  const [newsToDelete, setNewsToDelete] = useState<number | null>(null);
 
   const { isLoading, news } = useNews({
     category: category ?? undefined,
-    order: order ?? undefined,
+    order: order,
   });
 
   const filteredNews = useMemo(() => {
@@ -31,30 +33,42 @@ export function usePostsSectionController() {
     });
   }, [news, search]);
 
+  const categories = useMemo(() => {
+    return Object.values(Category);
+  }, []);
+
   const handleCategory = useCallback((category: Category | null) => {
     setCategory(category);
+  }, []);
+
+  const handleNewsOrder = useCallback((newsOrder: Order) => {
+    setOrder(newsOrder);
   }, []);
 
   const handleIsCreateDialogOpen = useCallback((open: boolean) => {
     setIsCreateDialogOpen(open);
   }, []);
 
-  function handleOpenEditDialog(news: INews) {
+  const handleOpenEditDialog = useCallback((news: INews) => {
     setIsEditDialogOpen(true);
     setPostToEdit(news);
-  }
+  }, []);
 
-  function handleCloseEditDialog() {
+  const handleCloseEditDialog = useCallback(() => {
     setIsEditDialogOpen(false);
     setPostToEdit(null);
-  }
+  }, []);
 
   const handleSearch = useCallback((searchTerm: string) => {
     setSearch(searchTerm);
   }, []);
 
-  const handleNewsOrder = useCallback((newsOrder: Order | null) => {
-    setOrder(newsOrder);
+  const handleSetNewsToDelete = useCallback((id: number) => {
+    setNewsToDelete(id);
+  }, []);
+
+  const handleResetNewsToDelete = useCallback(() => {
+    setNewsToDelete(null);
   }, []);
 
   return {
@@ -64,7 +78,9 @@ export function usePostsSectionController() {
     isLoading,
     postToEdit,
     category,
+    categories,
     isCreateDialogOpen,
+    newsToDelete,
     isEditDialogOpen,
     handleNewsOrder,
     handleSearch,
@@ -72,5 +88,7 @@ export function usePostsSectionController() {
     handleOpenEditDialog,
     handleCloseEditDialog,
     handleIsCreateDialogOpen,
+    handleSetNewsToDelete,
+    handleResetNewsToDelete,
   };
 }

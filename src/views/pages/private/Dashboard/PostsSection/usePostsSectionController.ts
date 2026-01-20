@@ -1,25 +1,24 @@
+// hooks/usePostsSectionController.ts
 import { useCallback, useMemo, useState } from "react";
 
 import type { INews } from '@app/entities/News';
-import type { Category } from '@app/enums/Category';
+import { Category } from '@app/enums/Category';
 import { Order } from '@app/enums/Order';
 import { useNews } from '@app/hooks/useNews';
 import { normalizeText } from '@app/utils/normalizeText';
 
 export function usePostsSectionController() {
   const [category, setCategory] = useState<Category | null>(null);
-  const [order, setOrder] = useState<Order | null>(Order.DESC);
+  const [order, setOrder] = useState<Order>(Order.DESC);
   const [search, setSearch] = useState('');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [postToEdit, setPostToEdit] = useState<INews | null>(null);
-
   const [newsToDelete, setNewsToDelete] = useState<number | null>(null);
 
-  const { isLoading, news } = useNews();
   const { isLoading, news } = useNews({
     category: category ?? undefined,
-    order: order ?? undefined,
+    order: order,
   });
 
   const filteredNews = useMemo(() => {
@@ -32,7 +31,7 @@ export function usePostsSectionController() {
 
       return matchesSearch;
     });
-  }, [news, category, search]);
+  }, [news, search]);
 
   const categories = useMemo(() => {
     return Object.values(Category);
@@ -42,19 +41,23 @@ export function usePostsSectionController() {
     setCategory(category);
   }, []);
 
+  const handleNewsOrder = useCallback((newsOrder: Order) => {
+    setOrder(newsOrder);
+  }, []);
+
   const handleIsCreateDialogOpen = useCallback((open: boolean) => {
     setIsCreateDialogOpen(open);
   }, []);
 
-  function handleOpenEditDialog(news: INews) {
+  const handleOpenEditDialog = useCallback((news: INews) => {
     setIsEditDialogOpen(true);
     setPostToEdit(news);
-  }
+  }, []);
 
-  function handleCloseEditDialog() {
+  const handleCloseEditDialog = useCallback(() => {
     setIsEditDialogOpen(false);
     setPostToEdit(null);
-  }
+  }, []);
 
   const handleSearch = useCallback((searchTerm: string) => {
     setSearch(searchTerm);
@@ -66,9 +69,6 @@ export function usePostsSectionController() {
 
   const handleResetNewsToDelete = useCallback(() => {
     setNewsToDelete(null);
-    
-  const handleNewsOrder = useCallback((newsOrder: Order | null) => {
-    setOrder(newsOrder);
   }, []);
 
   return {
@@ -78,6 +78,7 @@ export function usePostsSectionController() {
     isLoading,
     postToEdit,
     category,
+    categories,
     isCreateDialogOpen,
     newsToDelete,
     isEditDialogOpen,

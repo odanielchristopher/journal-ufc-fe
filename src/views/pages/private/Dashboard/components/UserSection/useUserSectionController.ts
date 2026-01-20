@@ -1,42 +1,61 @@
 import { useCallback, useMemo, useState } from "react";
-import { useUsers } from "@app/hooks/useUsers";
-import { normalizeText } from "@app/utils/normalizeText";
-import { Category } from "@app/entities/User";
+
+import type { IUser } from '@app/entities/User';
+import { Role } from '@app/enums/Role';
+import { useUsers } from '@app/hooks/useUsers';
+import { normalizeText } from '@app/utils/normalizeText';
 
 export function useUsersSectionController() {
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState<Category | null>(null);
+  const [role, setRole] = useState<Role | null>(null);
+  const [search, setSearch] = useState('');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const [userToDelete, setUserToDelete] = useState<string | null>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [userToEdit, setUserToEdit] = useState<IUser | null>(null);
+  const [userToDelete, setUserToDelete] = useState<number | null>(null);
 
-  const { users, isLoading } = useUsers();
+  const { isLoading, users } = useUsers({
+    role: role ?? undefined,
+  });
 
   const filteredUsers = useMemo(() => {
     const normalizedSearch = normalizeText(search);
 
-    return users.filter((item) => {
-      const matchesCategory = !category || item.category === category;
+    return users.filter((user) => {
       const matchesSearch =
-        normalizeText(item.name).includes(normalizedSearch) ||
-        normalizeText(item.email).includes(normalizedSearch);
+        normalizeText(user.nickname || '').includes(normalizedSearch) ||
+        normalizeText(user.username || '').includes(normalizedSearch);
 
-      return matchesCategory && matchesSearch;
+      return matchesSearch;
     });
-  }, [users, search, category]);
+  }, [users, search]);
+
+  const roles = useMemo(() => {
+    return Object.values(Role);
+  }, []);
+
+  const handleRole = useCallback((selectedRole: Role | null) => {
+    setRole(selectedRole);
+  }, []);
 
   const handleIsCreateDialogOpen = useCallback((open: boolean) => {
     setIsCreateDialogOpen(open);
+  }, []);
+
+  const handleOpenEditDialog = useCallback((user: IUser) => {
+    setIsEditDialogOpen(true);
+    setUserToEdit(user);
+  }, []);
+
+  const handleCloseEditDialog = useCallback(() => {
+    setIsEditDialogOpen(false);
+    setUserToEdit(null);
   }, []);
 
   const handleSearch = useCallback((searchTerm: string) => {
     setSearch(searchTerm);
   }, []);
 
-  const handleCategory = useCallback((category: Category | null) => {
-    setCategory(category);
-  }, []);
-
-  const handleSetUserToDelete = useCallback((id: string) => {
+  const handleSetUserToDelete = useCallback((id: number) => {
     setUserToDelete(id);
   }, []);
 
@@ -46,14 +65,19 @@ export function useUsersSectionController() {
 
   return {
     search,
-    category,
     filteredUsers,
     isLoading,
+    userToEdit,
+    role,
+    roles,
     isCreateDialogOpen,
     userToDelete,
-    handleIsCreateDialogOpen,
+    isEditDialogOpen,
     handleSearch,
-    handleCategory,
+    handleRole,
+    handleOpenEditDialog,
+    handleCloseEditDialog,
+    handleIsCreateDialogOpen,
     handleSetUserToDelete,
     handleResetUserToDelete,
   };

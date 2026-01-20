@@ -2,7 +2,6 @@ import { Controller } from 'react-hook-form';
 
 import { Button } from '@views/components/ui/Button';
 import { Input } from '@views/components/ui/Input';
-
 import { RoleSelect } from '../RoleSelect';
 
 import {
@@ -11,6 +10,7 @@ import {
 } from './useUsersFormController';
 
 interface UsersFormProps extends IUseUsersFormController {
+  defaultValues?: any;
   isLoading?: boolean;
   buttonLabel: string;
 }
@@ -35,6 +35,13 @@ export function UsersForm({
         placeholder="Email do usuário*"
         {...register('username')}
         error={errors.username?.message}
+      />
+
+      <Input
+        type="password"
+        placeholder="Senha*"
+        {...register('password')}
+        error={errors.password?.message}
       />
 
       <Controller

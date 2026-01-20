@@ -1,30 +1,17 @@
 import { Plus, Search } from "lucide-react";
-
+import { Skeleton } from "@views/components/ui/Skeleton";
 import { NewsCard } from "@views/components/app/NewsCard";
 import { Button } from "@views/components/ui/Button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@views/components/ui/Dialog";
 import { Input } from "@views/components/ui/Input";
-
-import { CategoryDropdown } from "../CategoryDropdown";
+import { CategoryDropdown } from "@views/components/app/CategoryDropdown";
+import { OrderSelect } from "@views/components/app/OrderSelect";
+import { CreateNewsDialog } from "./CreateNewsDialog";
+import { EditNewsDialog } from "./EditNewsDialog";
+import { DeleteNewsDialog } from "./DeleteNewsDialog";
+import { Category } from '@app/enums/Category';
+import { CategoryDataMapper } from '@app/datamappers/CategoryDataMapper';
 
 import { usePostsSectionController } from "./usePostsSectionController";
-
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@views/components/ui/AlertDialog";
-import { Category } from "@app/entities/News";
 
 export function PostsSection() {
   const {
@@ -36,30 +23,19 @@ export function PostsSection() {
     isLoading,
     postToEdit,
     category,
+    newsToDelete,
     handleNewsOrder,
     handleIsCreateDialogOpen,
     handleSearch,
     handleCloseEditDialog,
     handleOpenEditDialog,
     handleCategory,
+    handleSetNewsToDelete,
+    handleResetNewsToDelete,
   } = usePostsSectionController();
 
   return (
     <div className="space-y-8">
-      {isCreateDialogOpen && (
-        <CreateNewsDialog
-          isOpen={isCreateDialogOpen}
-          onClose={() => handleIsCreateDialogOpen(false)}
-        />
-      )}
-
-      {isEditDialogOpen && postToEdit && (
-        <EditNewsDialog
-          news={postToEdit}
-          isOpen={isEditDialogOpen}
-          onClose={handleCloseEditDialog}
-        />
-      )}
       <div className="space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -94,7 +70,10 @@ export function PostsSection() {
 
           <CategoryDropdown
             value={category ?? undefined}
-            onCategoryChange={handleCategory}
+            enumObj={Category}
+            labelMapper={(cat) => CategoryDataMapper.toDomain(cat as Category)}
+            onValueChange={handleCategory}
+            placeholder="Todas categorias"
           />
 
           <OrderSelect
@@ -126,55 +105,30 @@ export function PostsSection() {
             key={item.id}
             news={item}
             variant="edit"
-            onEdit={() => console.log("Editando o conteudo")}
+            onEdit={() => handleOpenEditDialog(item)}
             onRemove={() => handleSetNewsToDelete(item.id)}
           />
         ))}
       </div>
 
-      <Dialog open={isCreateDialogOpen} onOpenChange={handleIsCreateDialogOpen}>
-        <DialogContent className="w-[95vw] max-w-[640px] sm:w-full">
-          <DialogHeader>
-            <DialogTitle>Nova Postagem</DialogTitle>
-          </DialogHeader>
+      <CreateNewsDialog
+        isOpen={isCreateDialogOpen}
+        onClose={() => handleIsCreateDialogOpen(false)}
+      />
 
-          <div className="h-100" />
-        </DialogContent>
-      </Dialog>
+      {postToEdit && (
+        <EditNewsDialog
+          news={postToEdit}
+          isOpen={isEditDialogOpen}
+          onClose={handleCloseEditDialog}
+        />
+      )}
 
-      <AlertDialog
-        open={!!newsToDelete}
-        onOpenChange={(open) => {
-          if (!open) handleResetNewsToDelete();
-        }}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Essa ação é irreversível. Você realmente deseja apagar esta
-              postagem?
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-
-            <AlertDialogAction
-              className="bg-red-600 hover:bg-red-700"
-              onClick={() => {
-                if (!newsToDelete) return;
-
-                console.log("Apagando postagem:", newsToDelete);
-
-                handleResetNewsToDelete();
-              }}
-            >
-              Apagar
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <DeleteNewsDialog
+        newsId={newsToDelete}
+        isOpen={!!newsToDelete}
+        onClose={handleResetNewsToDelete}
+      />
     </div>
   );
 }

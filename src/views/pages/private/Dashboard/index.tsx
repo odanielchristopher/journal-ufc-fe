@@ -21,6 +21,7 @@ import {
 import { PostsSection } from '../Dashboard/PostsSection';
 
 import { UserInfoContainer } from './components/UserInfoContainer';
+import { UsersSection } from './components/UserSection';
 
 export function Dashboard() {
   const { user, signout } = useAuth();

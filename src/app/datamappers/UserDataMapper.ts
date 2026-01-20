@@ -1,26 +1,27 @@
 import type { IUser, IPersistenceUser } from '@app/entities/User';
+import type { Role } from '@app/enums/Role';
 
 export class UserDataMapper {
   static toPersistence(
     domainUser: Omit<IUser, 'id'>,
   ): Omit<IPersistenceUser, 'id'> {
-    const { name, email, category } = domainUser;
+    const { nickname, username, role } = domainUser;
 
     return {
-      name,
-      email,
-      category,
+      nickname,
+      username,
+      role,
     };
   }
 
   static toDomain(persistenceUser: IPersistenceUser): IUser {
-    const { id, name, email, category } = persistenceUser;
+    const { id, nickname, username, role } = persistenceUser;
 
     return {
       id: id!,
-      name,
-      email,
-      category,
+      nickname,
+      username,
+      role: role as Role,
     };
   }
 }

@@ -1,22 +1,10 @@
 {
   "users": [
     {
-      "id": "1",
-      "name": "João",
-      "email": "joao@mail.com",
-      "category": "ADMIN"
-    },
-    {
-      "id": "2",
-      "name": "Maria",
-      "email": "maria@mail.com",
-      "category": "EDITOR"
-    },
-    {
       "id": "3",
-      "name": "Pedro",
-      "email": "pedro@mail.com",
-      "category": "EDITOR"
+      "nickname": "Pedro",
+      "username": "pedro@mail.com",
+      "role": "EDITOR"
     },
     {
       "id": "random-id",

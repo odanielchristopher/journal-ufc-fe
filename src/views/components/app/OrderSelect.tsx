@@ -1,3 +1,5 @@
+import { Calendar } from 'lucide-react';
+
 import { Order } from '@app/enums/Order';
 
 import {
@@ -16,13 +18,17 @@ interface OrderSelectProps {
 export function OrderSelect({ value, onOrderChange }: OrderSelectProps) {
   return (
     <Select
-      defaultValue={value?.toString()}
-      onValueChange={(order: keyof typeof Order) =>
-        onOrderChange?.(Order[order])
-      }
+      value={value} 
+      onValueChange={(order: Order) => onOrderChange?.(order)} 
     >
       <SelectTrigger className="h-9 justify-between gap-2 border border-gray-300 bg-gray-100 font-normal md:w-52">
-        <SelectValue placeholder="Selecione a ordem" />
+        <div className="flex items-center gap-2">
+          <Calendar className="size-4 text-gray-500" />
+          <SelectValue 
+            placeholder="Selecione a ordem" 
+            className="text-gray-3 data-[placeholder]:text-gray-500"
+          />
+        </div>
       </SelectTrigger>
 
       <SelectContent>

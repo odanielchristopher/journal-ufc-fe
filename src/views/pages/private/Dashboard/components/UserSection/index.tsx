@@ -1,41 +1,33 @@
-// UsersSection.tsx
 import { Plus, Search } from "lucide-react";
+import { Skeleton } from "@views/components/ui/Skeleton";
 import { UserCard } from "@views/components/app/UserCard";
 import { Button } from "@views/components/ui/Button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@views/components/ui/Dialog";
 import { Input } from "@views/components/ui/Input";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@views/components/ui/AlertDialog";
-
-import { CategoryDropdown } from "../CategoryDropdown";
+import { CategoryDropdown } from "@views/components/app/CategoryDropdown";
 import { useUsersSectionController } from "./useUserSectionController";
-import { Category } from "@app/entities/User";
+import { CreateUserDialog } from "./CreateUserDialog";
+import { EditUserDialog } from "./EditUserDialog";
+import { DeleteUserDialog } from "./DeleteUserDialog";
+import { Role } from '@app/enums/Role';
+import { RoleDataMapper } from '@app/datamappers/RoleDataMapper';
 
 export function UsersSection() {
   const {
     search,
     filteredUsers,
     isCreateDialogOpen,
+    isEditDialogOpen,
     isLoading,
+    userToEdit,
     userToDelete,
+    role,
     handleIsCreateDialogOpen,
+    handleOpenEditDialog,
+    handleCloseEditDialog,
     handleSearch,
     handleSetUserToDelete,
     handleResetUserToDelete,
-    handleCategory,
+    handleRole,
   } = useUsersSectionController();
 
   return (
@@ -73,15 +65,24 @@ export function UsersSection() {
           </div>
 
           <CategoryDropdown
-            categories={Category}
-            onCategoryChange={handleCategory}
+            value={role ?? undefined}
+            enumObj={Role}
+            labelMapper={(role) => RoleDataMapper.toDomain(role as Role)}
+            onValueChange={handleRole}
+            placeholder="Todas funções"
           />
         </div>
       </div>
 
       <div className="space-y-4">
         {isLoading && (
-          <p className="text-muted-foreground text-sm">Carregando...</p>
+          <>
+            <Skeleton className="h-20" />
+            <Skeleton className="h-20" />
+            <Skeleton className="h-20" />
+            <Skeleton className="h-20" />
+            <Skeleton className="h-20" />
+          </>
         )}
 
         {!isLoading && filteredUsers.length === 0 && (
@@ -95,51 +96,30 @@ export function UsersSection() {
             key={item.id}
             user={item}
             variant="edit"
-            onEdit={() => console.log("Editando usuário")}
-            onRemove={() => handleSetUserToDelete(item.id)}
+            onEdit={() => handleOpenEditDialog(item)}
+            onRemove={() => handleSetUserToDelete(Number(item.id))}
           />
         ))}
       </div>
 
-      <Dialog open={isCreateDialogOpen} onOpenChange={handleIsCreateDialogOpen}>
-        <DialogContent className="w-[95vw] max-w-[640px] sm:w-full">
-          <DialogHeader>
-            <DialogTitle>Novo Usuário</DialogTitle>
-          </DialogHeader>
-          <div className="h-100" />
-        </DialogContent>
-      </Dialog>
+      <CreateUserDialog
+        isOpen={isCreateDialogOpen}
+        onClose={() => handleIsCreateDialogOpen(false)}
+      />
 
-      <AlertDialog
-        open={!!userToDelete}
-        onOpenChange={(open) => {
-          if (!open) handleResetUserToDelete();
-        }}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Essa ação é irreversível. Você realmente deseja apagar este usuário?
-            </AlertDialogDescription>
-          </AlertDialogHeader>
+      {userToEdit && (
+        <EditUserDialog
+          user={userToEdit}
+          isOpen={isEditDialogOpen}
+          onClose={handleCloseEditDialog}
+        />
+      )}
 
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-
-            <AlertDialogAction
-              className="bg-red-600 hover:bg-red-700"
-              onClick={() => {
-                if (!userToDelete) return;
-                console.log("Apagando usuário:", userToDelete);
-                handleResetUserToDelete();
-              }}
-            >
-              Apagar
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <DeleteUserDialog
+        userId={userToDelete}
+        isOpen={!!userToDelete}
+        onClose={handleResetUserToDelete}
+      />
     </div>
   );
 }

@@ -2,11 +2,14 @@ import type { AxiosInstance } from 'axios';
 
 import type { IUser } from '@app/entities/User';
 import type { Role } from '@app/enums/Role';
+import type { Order } from '@app/enums/Order';
 
 import { httpClient } from './httpClient';
 
 export class UsersService {
   readonly BASE_ROUTE = '/users';
+  
+  constructor(private readonly httpClient: AxiosInstance) {}
 
   me = async (): Promise<UsersService.MeOutput> => {
     const { data } = await this.httpClient.get<UsersService.MeOutput>('/users');
@@ -16,6 +19,14 @@ export class UsersService {
 
   getEditors = async () => {
     const { data } = await this.httpClient.get<IUser[]>('/users/editors');
+
+    return data;
+  };
+
+  getAll = async (input: UsersService.GetAllParams = {}) => {
+    const { data } = await this.httpClient.get<IUser[]>('/users', {
+      params: input,
+    });
 
     return data;
   };
@@ -38,6 +49,11 @@ export class UsersService {
 }
 
 export namespace UsersService {
+  export type GetAllParams = {
+    role?: Role;
+    order?: Order;
+  };
+
   export type MeOutput = IUser;
 
   export type CreateInput = {
@@ -48,10 +64,10 @@ export namespace UsersService {
   };
 
   export type UpdateInput = {
-    id: number;
+    id: string;
     nickname: string;
     username: string;
-    password: string;
+    password?: string;
     role: Role;
   };
 

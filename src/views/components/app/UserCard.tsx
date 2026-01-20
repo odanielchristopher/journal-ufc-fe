@@ -18,15 +18,14 @@ type NormalUserCardProps = {
 
 export type UserCardProps = NormalUserCardProps | EditUserCardProps;
 
-// Helper para cores das categorias
 const getCategoryColor = (category: string) => {
   const colors: Record<string, { bg: string; text: string }> = {
     ADMIN: {
-      bg: 'bg-green-100', // Verde para ADMIN
+      bg: 'bg-green-100',
       text: 'text-green-700',
     },
     EDITOR: {
-      bg: 'bg-yellow-100', // Amarelo para EDITOR
+      bg: 'bg-yellow-100',
       text: 'text-yellow-700',
     },
   };
@@ -43,7 +42,7 @@ export function UserCard(props: UserCardProps) {
 }
 
 function DefaultUserCard({ user, className }: NormalUserCardProps) {
-  const categoryColors = getCategoryColor(user.category);
+  const categoryColors = getCategoryColor(user.role);
 
   return (
     <div
@@ -54,14 +53,13 @@ function DefaultUserCard({ user, className }: NormalUserCardProps) {
       </div>
 
       <div className="flex flex-1 flex-col gap-1">
-        <h3 className="text-base leading-snug font-semibold">{user.name}</h3>
+        <h3 className="text-base leading-snug font-semibold">{user.nickname}</h3>
         <p className="text-muted-foreground line-clamp-1 text-sm">
-          {user.email}
+          {user.username}
         </p>
         
-        {/* Badge da categoria */}
         <span className={`w-fit rounded-full ${categoryColors.bg} ${categoryColors.text} px-3 py-0.5 text-xs font-medium mt-1`}>
-          {capitalizeFirstLetter(user.category.toLowerCase())}
+          {capitalizeFirstLetter(user.role.toLowerCase())}
         </span>
       </div>
     </div>
@@ -69,7 +67,7 @@ function DefaultUserCard({ user, className }: NormalUserCardProps) {
 }
 
 function EditUserCard({ user, onEdit, onRemove }: EditUserCardProps) {
-  const categoryColors = getCategoryColor(user.category);
+  const categoryColors = getCategoryColor(user.role);
 
   return (
     <div className="flex w-full min-w-0 flex-wrap sm:flex-nowrap items-start gap-4 rounded-lg border border-gray-200 bg-white p-4 transition hover:bg-gray-50">
@@ -78,13 +76,13 @@ function EditUserCard({ user, onEdit, onRemove }: EditUserCardProps) {
       </div>
 
       <div className="flex flex-1 flex-col gap-1">
-        <h3 className="text-base leading-snug font-semibold">{user.name}</h3>
+        <h3 className="text-base leading-snug font-semibold">{user.nickname}</h3>
         <p className="text-muted-foreground line-clamp-2 text-sm">
-          {user.email}
+          {user.username}
         </p>
         
         <span className={`w-fit rounded-full ${categoryColors.bg} ${categoryColors.text} px-3 py-0.5 text-xs font-medium mt-1`}>
-          {capitalizeFirstLetter(user.category.toLowerCase())}
+          {capitalizeFirstLetter(user.role.toLowerCase())}
         </span>
       </div>
 

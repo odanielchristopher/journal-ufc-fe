@@ -21,11 +21,13 @@ export function UsersSection() {
   } = useUsersSectionController();
 
   return (
-    <div className="space-y-8">
-      <div className="space-y-6">
+    <div className="space-y-5">
+      <div className="space-y-6 rounded-lg border bg-white p-4 sm:p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-2xl font-semibold">Gerenciar Usuários</h2>
+            <h2 className="text-2xl font-semibold text-black">
+              Gerenciar Usuários
+            </h2>
             <p className="text-muted-foreground text-sm">
               Crie, edite e remova usuários do sistema
             </p>

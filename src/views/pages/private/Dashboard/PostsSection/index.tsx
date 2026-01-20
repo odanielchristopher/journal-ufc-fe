@@ -42,8 +42,8 @@ export function PostsSection() {
   if (!user) return null;
 
   return (
-    <div className="space-y-8">
-      <div className="space-y-6">
+    <div className="space-y-5">
+      <div className="space-y-6 rounded-lg bg-white p-4 shadow-sm sm:p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-2xl font-semibold">Gerenciar Postagens</h2>

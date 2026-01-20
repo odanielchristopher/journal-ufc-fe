@@ -17,6 +17,10 @@ export function EditCard({ news, onEdit, onRemove }: EditCardProps) {
         src={news.imageUrl}
         alt={news.title}
         className="h-24 w-40 rounded-md object-cover"
+        onError={(e) => {
+          e.currentTarget.onerror = null;
+          e.currentTarget.src = '/placeholder.svg';
+        }}
       />
 
       <div className="flex flex-1 flex-col gap-1">

@@ -11,7 +11,17 @@ import { DeleteNewsDialog } from "./DeleteNewsDialog";
 import { Category } from '@app/enums/Category';
 import { CategoryDataMapper } from '@app/datamappers/CategoryDataMapper';
 
-import { usePostsSectionController } from "./usePostsSectionController";
+import { useAuth } from '@app/hooks/useAuth';
+import { CategoryDropdown } from '@views/components/app/CategoryDropdown';
+import { NewsCard } from '@views/components/app/NewsCard';
+import { OrderSelect } from '@views/components/app/OrderSelect';
+import { Button } from '@views/components/ui/Button';
+import { Input } from '@views/components/ui/Input';
+import { Skeleton } from '@views/components/ui/Skeleton';
+
+import { CreateNewsDialog } from './CreateNewsDialog';
+import { EditNewsDialog } from './EditNewsDialog';
+import { usePostsSectionController } from './usePostsSectionController';
 
 export function PostsSection() {
   const {
@@ -34,6 +44,8 @@ export function PostsSection() {
     handleResetNewsToDelete,
   } = usePostsSectionController();
 
+  const { user } = useAuth();
+
   return (
     <div className="space-y-8">
       <div className="space-y-6">
@@ -45,14 +57,16 @@ export function PostsSection() {
             </p>
           </div>
 
-          <Button
-            type="button"
-            className="gap-2 self-start sm:self-auto whitespace-nowrap"
-            onClick={() => handleIsCreateDialogOpen(true)}
-          >
-            <Plus className="size-4" />
-            Nova Postagem
-          </Button>
+          {user?.role === 'EDITOR' && (
+            <Button
+              type="button"
+              className="gap-2"
+              onClick={() => handleIsCreateDialogOpen(true)}
+            >
+              <Plus className="size-4" />
+              Nova Postagem
+            </Button>
+          )}
         </div>
 
         <div className="flex flex-col gap-4 md:flex-row">

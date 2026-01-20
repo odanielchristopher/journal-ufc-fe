@@ -7,7 +7,12 @@ import type { EditCardProps } from '..';
 
 export function EditCard({ news, onEdit, onRemove }: EditCardProps) {
   return (
-    <div className="flex items-start gap-4 rounded-lg border border-gray-200 bg-white p-4 transition hover:bg-gray-50">
+    <div className="
+      flex w-full min-w-0 flex-wrap sm:flex-nowrap
+      items-start gap-4
+      rounded-lg border border-gray-200 bg-white
+      p-4 transition hover:bg-gray-50
+    ">
       <img
         src={news.imageUrl}
         alt={news.title}

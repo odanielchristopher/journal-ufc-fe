@@ -8,6 +8,7 @@ export const userSchema = z.object({
   role: z.enum(Object.values(Role), {
     error: 'O perfil do usuário é obrigatório',
   }),
+  password: z.string().min(6, 'Senha deve ter no mínimo 6 caracteres'),
 });
 
 export type UsersFormData = z.infer<typeof userSchema>;

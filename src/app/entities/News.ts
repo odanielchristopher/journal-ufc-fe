@@ -14,7 +14,7 @@ export interface INews {
 export interface IPersistenceNews {
   id?: number;
   title: string;
-  imageUrl: string;
+  imagemUrl: string;
   description: string;
   text: string;
   publishedDate: string;

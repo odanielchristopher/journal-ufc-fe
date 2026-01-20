@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { Link, Navigate } from 'react-router';
 
+import { Role } from '@app/enums/Role';
 import { useAuth } from '@app/hooks/useAuth';
 import { routes } from '@app/Router/routes';
 import { Button } from '@views/components/ui/Button';
@@ -21,7 +22,7 @@ import {
 import { PostsSection } from '../Dashboard/PostsSection';
 
 import { UserInfoContainer } from './components/UserInfoContainer';
-import { UsersSection } from './components/UserSection';
+import { UsersSection } from './UserSection';
 
 export function Dashboard() {
   const { user, signout } = useAuth();
@@ -59,55 +60,37 @@ export function Dashboard() {
       </header>
 
       <main className="flex justify-center p-6">
-        <div className="w-full max-w-7x1 space-y-6">
+        <div className="max-w-7x1 w-full space-y-6">
           <Tabs defaultValue="posts" className="w-full space-y-6">
-            <TabsList className="
-              flex w-full max-w-full
-              flex-wrap
-              rounded-full bg-gray-200 p-1
-            ">
-              <TabsTrigger value="overview" className="
-                flex flex-1 min-w-0
-                items-center justify-center gap-2
-                rounded-full text-sm font-medium
-                text-gray-600
-                    data-[state=active]:bg-white
-                    data-[state=active]:text-gray-900
-                    data-[state=active]:shadow-sm
-              ">
-                  <LayoutGrid className="size-4" />
-                  Visão Geral
-                </TabsTrigger>
+            <TabsList className="flex w-full max-w-full flex-wrap rounded-full bg-gray-200 p-1">
+              <TabsTrigger
+                value="overview"
+                className="flex min-w-0 flex-1 items-center justify-center gap-2 rounded-full text-sm font-medium text-gray-600 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm"
+              >
+                <LayoutGrid className="size-4" />
+                Visão Geral
+              </TabsTrigger>
 
-              <TabsTrigger value="posts" className="
-                flex flex-1 min-w-0
-                items-center justify-center gap-2
-                rounded-full text-sm font-medium
-                text-gray-600
-                    data-[state=active]:bg-white
-                    data-[state=active]:text-gray-900
-                    data-[state=active]:shadow-sm
-              ">
-                  <Newspaper className="size-4" />
-                  Postagens
-                </TabsTrigger>
+              <TabsTrigger
+                value="posts"
+                className="flex min-w-0 flex-1 items-center justify-center gap-2 rounded-full text-sm font-medium text-gray-600 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm"
+              >
+                <Newspaper className="size-4" />
+                Postagens
+              </TabsTrigger>
 
-              <TabsTrigger value="users" className="
-                flex flex-1 min-w-0
-                items-center justify-center gap-2
-                rounded-full text-sm font-medium
-                text-gray-600
-                    data-[state=active]:bg-white
-                    data-[state=active]:text-gray-900
-                    data-[state=active]:shadow-sm
-                  "
+              {user.role === Role.ADMIN && (
+                <TabsTrigger
+                  value="users"
+                  className="flex min-w-0 flex-1 items-center justify-center gap-2 rounded-full text-sm font-medium text-gray-600 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm"
                 >
                   <Users className="size-4" />
                   Usuários
                 </TabsTrigger>
-              </TabsList>
+              )}
+            </TabsList>
 
-            <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+            <div className="rounded-lg bg-white p-4 shadow-sm sm:p-6">
               <TabsContent value="posts" className="m-0">
                 <PostsSection />
               </TabsContent>
@@ -118,11 +101,13 @@ export function Dashboard() {
                 </div>
               </TabsContent>
 
-              <TabsContent value="users" className="m-0">
-                <div className="text-muted-foreground">
-                  <UsersSection />
-                </div>
-              </TabsContent>
+              {user.role === Role.ADMIN && (
+                <TabsContent value="users" className="m-0">
+                  <div className="text-muted-foreground">
+                    <UsersSection />
+                  </div>
+                </TabsContent>
+              )}
             </div>
           </Tabs>
         </div>

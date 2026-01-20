@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from 'react';
 
 import type { IUser } from '@app/entities/User';
 import { Role } from '@app/enums/Role';
@@ -13,9 +13,7 @@ export function useUsersSectionController() {
   const [userToEdit, setUserToEdit] = useState<IUser | null>(null);
   const [userToDelete, setUserToDelete] = useState<number | null>(null);
 
-  const { isLoading, users } = useUsers({
-    role: role ?? undefined,
-  });
+  const { isLoading, users } = useUsers();
 
   const filteredUsers = useMemo(() => {
     const normalizedSearch = normalizeText(search);

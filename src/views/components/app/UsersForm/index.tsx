@@ -2,6 +2,7 @@ import { Controller } from 'react-hook-form';
 
 import { Button } from '@views/components/ui/Button';
 import { Input } from '@views/components/ui/Input';
+
 import { RoleSelect } from '../RoleSelect';
 
 import {
@@ -28,12 +29,14 @@ export function UsersForm({
       <Input
         placeholder="Nome do usuário*"
         {...register('nickname')}
+        className="bg-white"
         error={errors.nickname?.message}
       />
 
       <Input
         placeholder="Email do usuário*"
         {...register('username')}
+        className="bg-white"
         error={errors.username?.message}
       />
 
@@ -41,6 +44,7 @@ export function UsersForm({
         type="password"
         placeholder="Senha*"
         {...register('password')}
+        className="bg-white"
         error={errors.password?.message}
       />
 

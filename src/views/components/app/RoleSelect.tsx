@@ -30,7 +30,7 @@ export function RoleSelect({
         defaultValue={value}
         onValueChange={(role: keyof typeof Role) => onSelect?.(Role[role])}
       >
-        <SelectTrigger className="bg-white-100 h-12! w-full">
+        <SelectTrigger className="h-12! w-full bg-white">
           <SelectValue placeholder={placeholder ?? 'Selecione o perfil'} />
         </SelectTrigger>
 

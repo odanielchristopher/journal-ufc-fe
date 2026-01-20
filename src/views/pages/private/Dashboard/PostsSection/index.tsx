@@ -1,5 +1,6 @@
 import { Plus, Search } from 'lucide-react';
 
+import { useAuth } from '@app/hooks/useAuth';
 import { CategoryDropdown } from '@views/components/app/CategoryDropdown';
 import { NewsCard } from '@views/components/app/NewsCard';
 import { OrderSelect } from '@views/components/app/OrderSelect';
@@ -29,6 +30,8 @@ export function PostsSection() {
     handleCategory,
   } = usePostsSectionController();
 
+  const { user } = useAuth();
+
   return (
     <div className="space-y-8">
       {isCreateDialogOpen && (
@@ -54,14 +57,16 @@ export function PostsSection() {
             </p>
           </div>
 
-          <Button
-            type="button"
-            className="gap-2"
-            onClick={() => handleIsCreateDialogOpen(true)}
-          >
-            <Plus className="size-4" />
-            Nova Postagem
-          </Button>
+          {user?.role === 'EDITOR' && (
+            <Button
+              type="button"
+              className="gap-2"
+              onClick={() => handleIsCreateDialogOpen(true)}
+            >
+              <Plus className="size-4" />
+              Nova Postagem
+            </Button>
+          )}
         </div>
 
         <div className="flex flex-col gap-4 md:flex-row">

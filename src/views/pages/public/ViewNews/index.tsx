@@ -1,6 +1,8 @@
 import { ArrowLeft, Calendar, Tag, User } from 'lucide-react';
 import { useMemo } from 'react';
+
 import { Button } from '../../../components/ui/Button';
+
 import { ViewNewsSkeleton } from './components/SectionSkeleton';
 import { useViewNewsParams } from './useViewNewsParams';
 
@@ -67,6 +69,10 @@ export function ViewNews() {
           src={data.imageUrl}
           alt={data.title}
           className="h-full w-full transform object-cover transition-transform duration-700 group-hover:scale-105"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = '/placeholder.svg';
+          }}
         />
         <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
       </div>

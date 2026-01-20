@@ -66,7 +66,10 @@ export function UsersSection() {
 
           <CategoryDropdown
             value={role ?? undefined}
-            enumObj={Role}
+            enumObj={{
+              ADMIN: 'ADMIN',
+              EDITOR: 'EDITOR',
+            }}
             labelMapper={(role) => RoleDataMapper.toDomain(role as Role)}
             onValueChange={handleRole}
             placeholder="Todas funções"

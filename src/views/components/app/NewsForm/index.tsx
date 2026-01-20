@@ -59,7 +59,13 @@ export function NewsForm({ isLoading, buttonLabel, ...props }: NewsFormProps) {
             className="h-12 w-full! bg-white hover:bg-white"
             value={value}
             placeholder="Selecione uma categoria*"
-            onCategoryChange={onChange}
+            enumObj={{
+              DESTAQUE: 'DESTAQUE',
+              EXTENSAO: 'EXTENSAO', 
+              PESQUISA: 'PESQUISA',
+              COMUNIDADE: 'COMUNIDADE',
+            }}
+            onValueChange={onChange}
             error={formState.errors.category?.message}
           />
         )}

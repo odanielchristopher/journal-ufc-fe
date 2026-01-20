@@ -70,7 +70,12 @@ export function PostsSection() {
 
           <CategoryDropdown
             value={category ?? undefined}
-            enumObj={Category}
+            enumObj={{
+              DESTAQUE: 'DESTAQUE',
+              EXTENSAO: 'EXTENSAO', 
+              PESQUISA: 'PESQUISA',
+              COMUNIDADE: 'COMUNIDADE',
+            }}
             labelMapper={(cat) => CategoryDataMapper.toDomain(cat as Category)}
             onValueChange={handleCategory}
             placeholder="Todas categorias"

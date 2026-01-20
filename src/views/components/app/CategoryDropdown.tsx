@@ -38,9 +38,22 @@ export function CategoryDropdown<T extends EnumObject>({
   const [selectedValue, setSelectedValue] = useState<T[keyof T] | null>(value ?? null);
 
   const enumValues = useMemo(() => {
-    return Object.values(enumObj).filter(
-      (value) => typeof value === 'string' || typeof value === 'number'
-    ) as T[keyof T][];
+    if (!enumObj) {
+      console.warn('Enum object is undefined');
+      return [];
+    }
+
+    try {
+      const values = Object.values(enumObj as any);
+      
+      const stringValues = values.filter(
+        (value) => typeof value === 'string'
+      ) as T[keyof T][];
+      
+      return stringValues;
+    } catch {
+      return [];
+    }
   }, [enumObj]);
 
   function handleValueChange(value: T[keyof T] | null) {

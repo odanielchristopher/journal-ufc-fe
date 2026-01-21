@@ -7,6 +7,7 @@ import { FieldError } from './FieldError';
 interface IInputProps extends React.ComponentProps<'input'> {
   name: string;
   error?: string;
+  floatingLabel?: boolean;
 }
 
 export function Input({
@@ -16,6 +17,7 @@ export function Input({
   error,
   className,
   type,
+  floatingLabel = true,
   ...props
 }: IInputProps) {
   const inputId = id ?? name;
@@ -33,16 +35,18 @@ export function Input({
           'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
           className,
         )}
-        placeholder=" "
+        placeholder={floatingLabel ? ' ' : placeholder}
         {...props}
       />
 
-      <label
-        htmlFor={inputId}
-        className="text-muted-foreground pointer-events-none absolute top-2 left-[13px] text-xs transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm"
-      >
-        {placeholder}
-      </label>
+      {floatingLabel && (
+        <label
+          htmlFor={inputId}
+          className="text-muted-foreground pointer-events-none absolute top-2 left-3.25 text-xs transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm"
+        >
+          {placeholder}
+        </label>
+      )}
 
       {error && <FieldError message={error} />}
     </div>

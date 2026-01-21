@@ -1,8 +1,15 @@
+import type { Role } from '@app/enums/Role';
+
 export interface IUser {
   id: string;
-  avatarPath?: string;
-  firstName: string;
-  lastName: string;
-  age: number;
-  email: string;
+  nickname: string;
+  username: string;
+  role: Role;
+}
+
+export interface IPersistenceUser {
+  id?: string;
+  nickname: string;
+  username: string;
+  role: string;
 }

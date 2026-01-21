@@ -11,17 +11,15 @@ import { toast } from 'sonner';
 import { AUTH_QUERY_KEY } from '@app/config/constants';
 import { localStorageKeys } from '@app/config/localStorageKeys';
 import type { IUser } from '@app/entities/User';
-import { authService } from '@app/services/authService';
 import { httpClient } from '@app/services/httpClient';
 import { usersService } from '@app/services/usersService';
 import { capitalizeFirstLetter } from '@app/utils/capitalizeFirstLetter';
-import { sleep } from '@app/utils/sleep';
 import { LaunchScreen } from '@views/components/app/LaunchScreen';
 
 interface IAuthContextValue {
   signedIn: boolean;
   user: IUser | undefined;
-  signin(accessToken: string, refreshToken: string): void;
+  signin(accessToken: string): void;
   signout(): void;
 }
 
@@ -37,9 +35,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   });
   const queryClient = useQueryClient();
 
-  const { isError, isFetching, isSuccess, data } = useQuery({
+  const { isError, isFetching, isSuccess, data, error } = useQuery({
     queryKey: AUTH_QUERY_KEY(),
-    queryFn: usersService.me,
+    queryFn: () => usersService.me(),
     staleTime: Infinity,
     enabled: signedIn,
   });
@@ -60,60 +58,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  useLayoutEffect(() => {
-    const interceptorId = httpClient.interceptors.response.use(
-      async (response) => {
-        await sleep(2000);
-
-        return response;
-      },
-      async (error) => {
-        const originalRequest = error.config;
-        const refreshToken = localStorage.getItem(
-          localStorageKeys.REFRESH_TOKEN,
-        );
-
-        if (originalRequest.url === '/auth/refresh-token') {
-          setSignedIn(false);
-
-          localStorage.clear();
-          return Promise.reject(error);
-        }
-
-        if (error.response?.status !== 401 || !refreshToken) {
-          return Promise.reject(error);
-        }
-
-        const response = await authService.refreshToken(refreshToken);
-
-        localStorage.setItem(
-          localStorageKeys.ACCESS_TOKEN,
-          response.accessToken,
-        );
-        localStorage.setItem(
-          localStorageKeys.REFRESH_TOKEN,
-          response.refreshToken,
-        );
-
-        return httpClient(originalRequest);
-      },
-    );
-
-    return () => {
-      httpClient.interceptors.response.eject(interceptorId);
-    };
-  }, []);
-
-  const signin = useCallback((accessToken: string, refreshToken: string) => {
+  const signin = useCallback((accessToken: string) => {
     localStorage.setItem(localStorageKeys.ACCESS_TOKEN, accessToken);
-    localStorage.setItem(localStorageKeys.REFRESH_TOKEN, refreshToken);
 
     setSignedIn(true);
   }, []);
 
   const signout = useCallback(() => {
     localStorage.removeItem(localStorageKeys.ACCESS_TOKEN);
-    localStorage.removeItem(localStorageKeys.REFRESH_TOKEN);
 
     queryClient.removeQueries();
 
@@ -122,13 +74,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(`Bem-vindo, ${capitalizeFirstLetter(data.firstName)}!`);
+      toast.success(`Bem-vindo, ${capitalizeFirstLetter(data.nickname)}!`);
     }
   }, [isSuccess, data]);
 
   useEffect(() => {
     if (isError) {
       toast.error('Sua sessão expirou!');
+      console.log(error);
       signout();
     }
   }, [isError, signout]);

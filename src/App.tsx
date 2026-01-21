@@ -11,7 +11,7 @@ export function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <ThemeProvider defaultTheme="dark" storageKey="ufc:ui-theme">
+        <ThemeProvider defaultTheme="light" storageKey="ufc:ui-theme">
           <BrowserRouter>
             <Router />
             <Toaster position="top-right" richColors />

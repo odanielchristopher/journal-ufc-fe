@@ -1,41 +1,33 @@
-import { Plus, Search } from "lucide-react";
-import { Skeleton } from "@views/components/ui/Skeleton";
-import { UserCard } from "@views/components/app/UserCard";
-import { Button } from "@views/components/ui/Button";
-import { Input } from "@views/components/ui/Input";
-import { CategoryDropdown } from "@views/components/app/CategoryDropdown";
-import { useUsersSectionController } from "./useUserSectionController";
-import { CreateUserDialog } from "./CreateUserDialog";
-import { EditUserDialog } from "./EditUserDialog";
-import { DeleteUserDialog } from "./DeleteUserDialog";
-import { Role } from '@app/enums/Role';
-import { RoleDataMapper } from '@app/datamappers/RoleDataMapper';
+import { Plus, Search } from 'lucide-react';
+
+import { UserCard } from '@views/components/app/UserCard';
+import { Button } from '@views/components/ui/Button';
+import { Input } from '@views/components/ui/Input';
+import { Skeleton } from '@views/components/ui/Skeleton';
+
+import { CreateUserDialog } from './CreateUserDialog';
+import { useUsersSectionController } from './useUserSectionController';
 
 export function UsersSection() {
   const {
     search,
     filteredUsers,
     isCreateDialogOpen,
-    isEditDialogOpen,
     isLoading,
-    userToEdit,
-    userToDelete,
-    role,
     handleIsCreateDialogOpen,
     handleOpenEditDialog,
-    handleCloseEditDialog,
     handleSearch,
     handleSetUserToDelete,
-    handleResetUserToDelete,
-    handleRole,
   } = useUsersSectionController();
 
   return (
-    <div className="space-y-8">
-      <div className="space-y-6">
+    <div className="space-y-5">
+      <div className="space-y-6 rounded-lg border bg-white p-4 sm:p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-2xl font-semibold">Gerenciar Usuários</h2>
+            <h2 className="text-2xl font-semibold text-black">
+              Gerenciar Usuários
+            </h2>
             <p className="text-muted-foreground text-sm">
               Crie, edite e remova usuários do sistema
             </p>
@@ -43,7 +35,7 @@ export function UsersSection() {
 
           <Button
             type="button"
-            className="gap-2 self-start sm:self-auto whitespace-nowrap"
+            className="gap-2 self-start whitespace-nowrap sm:self-auto"
             onClick={() => handleIsCreateDialogOpen(true)}
           >
             <Plus className="size-4" />
@@ -63,17 +55,6 @@ export function UsersSection() {
             />
             <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-gray-400" />
           </div>
-
-          <CategoryDropdown
-            value={role ?? undefined}
-            enumObj={{
-              ADMIN: 'ADMIN',
-              EDITOR: 'EDITOR',
-            }}
-            labelMapper={(role) => RoleDataMapper.toDomain(role as Role)}
-            onValueChange={handleRole}
-            placeholder="Todas funções"
-          />
         </div>
       </div>
 
@@ -108,20 +89,6 @@ export function UsersSection() {
       <CreateUserDialog
         isOpen={isCreateDialogOpen}
         onClose={() => handleIsCreateDialogOpen(false)}
-      />
-
-      {userToEdit && (
-        <EditUserDialog
-          user={userToEdit}
-          isOpen={isEditDialogOpen}
-          onClose={handleCloseEditDialog}
-        />
-      )}
-
-      <DeleteUserDialog
-        userId={userToDelete}
-        isOpen={!!userToDelete}
-        onClose={handleResetUserToDelete}
       />
     </div>
   );

@@ -45,7 +45,8 @@ export function DeleteNewsDialog({
         <AlertDialogHeader>
           <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
           <AlertDialogDescription>
-            Essa ação é irreversível. Você realmente deseja apagar esta postagem?
+            Essa ação é irreversível. Você realmente deseja apagar esta
+            postagem?
           </AlertDialogDescription>
         </AlertDialogHeader>
 

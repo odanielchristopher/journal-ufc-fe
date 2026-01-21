@@ -35,7 +35,9 @@ export function CategoryDropdown<T extends EnumObject>({
   labelMapper = (val) => String(val),
   onValueChange,
 }: CategoryDropdownProps<T>) {
-  const [selectedValue, setSelectedValue] = useState<T[keyof T] | null>(value ?? null);
+  const [selectedValue, setSelectedValue] = useState<T[keyof T] | null>(
+    value ?? null,
+  );
 
   const enumValues = useMemo(() => {
     if (!enumObj) {
@@ -45,11 +47,11 @@ export function CategoryDropdown<T extends EnumObject>({
 
     try {
       const values = Object.values(enumObj as any);
-      
+
       const stringValues = values.filter(
-        (value) => typeof value === 'string'
+        (value) => typeof value === 'string',
       ) as T[keyof T][];
-      
+
       return stringValues;
     } catch {
       return [];

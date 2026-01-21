@@ -1,5 +1,7 @@
 import { Controller } from 'react-hook-form';
 
+import { CategoryDataMapper } from '@app/datamappers/CategoryDataMapper';
+import type { Category } from '@app/enums/Category';
 import { Button } from '@views/components/ui/Button';
 import { Input } from '@views/components/ui/Input';
 import { Textarea } from '@views/components/ui/Textarea';
@@ -58,13 +60,14 @@ export function NewsForm({ isLoading, buttonLabel, ...props }: NewsFormProps) {
             isFilter={false}
             className="h-12 w-full! bg-white hover:bg-white"
             value={value}
-            placeholder="Selecione uma categoria*"
             enumObj={{
               DESTAQUE: 'DESTAQUE',
-              EXTENSAO: 'EXTENSAO', 
+              EXTENSAO: 'EXTENSAO',
               PESQUISA: 'PESQUISA',
               COMUNIDADE: 'COMUNIDADE',
             }}
+            labelMapper={(cat) => CategoryDataMapper.toDomain(cat as Category)}
+            placeholder="Selecione uma categoria*"
             onValueChange={onChange}
             error={formState.errors.category?.message}
           />

@@ -16,7 +16,11 @@ interface CreateUserDialogProps {
   onSuccess?(): void;
 }
 
-export function CreateUserDialog({ isOpen, onClose, onSuccess }: CreateUserDialogProps) {
+export function CreateUserDialog({
+  isOpen,
+  onClose,
+  onSuccess,
+}: CreateUserDialogProps) {
   const { createUser, isLoading } = useCreateUser();
 
   async function handleSubmit(formData: UsersFormData) {

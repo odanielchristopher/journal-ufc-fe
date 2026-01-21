@@ -2,58 +2,34 @@ import type { AxiosInstance } from 'axios';
 
 import type { IUser } from '@app/entities/User';
 import type { Role } from '@app/enums/Role';
-import type { Order } from '@app/enums/Order';
 
 import { httpClient } from './httpClient';
 
 export class UsersService {
   readonly BASE_ROUTE = '/users';
-  
+
   constructor(private readonly httpClient: AxiosInstance) {}
 
-  me = async (): Promise<UsersService.MeOutput> => {
+  async me(): Promise<UsersService.MeOutput> {
     const { data } = await this.httpClient.get<UsersService.MeOutput>('/users');
 
     return data;
-  };
+  }
 
-  getEditors = async () => {
+  async getEditors() {
     const { data } = await this.httpClient.get<IUser[]>('/users/editors');
 
     return data;
-  };
-
-  getAll = async (input: UsersService.GetAllParams = {}) => {
-    const { data } = await this.httpClient.get<IUser[]>('/users', {
-      params: input,
-    });
-
-    return data;
-  };
+  }
 
   create = async (input: UsersService.CreateInput) => {
     const { data } = await this.httpClient.post<IUser>('/users', input);
 
     return data;
   };
-
-  update = async (input: UsersService.UpdateInput) => {
-    const { data } = await this.httpClient.put<IUser>('/users', input);
-
-    return data;
-  };
-
-  remove = async (input: UsersService.RemoveInput) => {
-    await this.httpClient.delete(`/users/${input.id}`);
-  };
 }
 
 export namespace UsersService {
-  export type GetAllParams = {
-    role?: Role;
-    order?: Order;
-  };
-
   export type MeOutput = IUser;
 
   export type CreateInput = {
@@ -61,18 +37,6 @@ export namespace UsersService {
     username: string;
     password: string;
     role: Role;
-  };
-
-  export type UpdateInput = {
-    id: string;
-    nickname: string;
-    username: string;
-    password?: string;
-    role: Role;
-  };
-
-  export type RemoveInput = {
-    id: number;
   };
 }
 

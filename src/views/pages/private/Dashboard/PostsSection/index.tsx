@@ -1,16 +1,8 @@
-import { Plus, Search } from "lucide-react";
-import { Skeleton } from "@views/components/ui/Skeleton";
-import { NewsCard } from "@views/components/app/NewsCard";
-import { Button } from "@views/components/ui/Button";
-import { Input } from "@views/components/ui/Input";
-import { CategoryDropdown } from "@views/components/app/CategoryDropdown";
-import { OrderSelect } from "@views/components/app/OrderSelect";
-import { CreateNewsDialog } from "./CreateNewsDialog";
-import { EditNewsDialog } from "./EditNewsDialog";
-import { DeleteNewsDialog } from "./DeleteNewsDialog";
-import { Category } from '@app/enums/Category';
-import { CategoryDataMapper } from '@app/datamappers/CategoryDataMapper';
+import { Plus, Search } from 'lucide-react';
 
+import { CategoryDataMapper } from '@app/datamappers/CategoryDataMapper';
+import { Category } from '@app/enums/Category';
+import { Role } from '@app/enums/Role';
 import { useAuth } from '@app/hooks/useAuth';
 import { CategoryDropdown } from '@views/components/app/CategoryDropdown';
 import { NewsCard } from '@views/components/app/NewsCard';
@@ -20,6 +12,7 @@ import { Input } from '@views/components/ui/Input';
 import { Skeleton } from '@views/components/ui/Skeleton';
 
 import { CreateNewsDialog } from './CreateNewsDialog';
+import { DeleteNewsDialog } from './DeleteNewsDialog';
 import { EditNewsDialog } from './EditNewsDialog';
 import { usePostsSectionController } from './usePostsSectionController';
 
@@ -46,9 +39,11 @@ export function PostsSection() {
 
   const { user } = useAuth();
 
+  if (!user) return null;
+
   return (
-    <div className="space-y-8">
-      <div className="space-y-6">
+    <div className="space-y-5">
+      <div className="space-y-6 rounded-lg bg-white p-4 shadow-sm sm:p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-2xl font-semibold">Gerenciar Postagens</h2>
@@ -57,7 +52,7 @@ export function PostsSection() {
             </p>
           </div>
 
-          {user?.role === 'EDITOR' && (
+          {[Role.ADMIN, Role.EDITOR].includes(user.role) && (
             <Button
               type="button"
               className="gap-2"
@@ -86,7 +81,7 @@ export function PostsSection() {
             value={category ?? undefined}
             enumObj={{
               DESTAQUE: 'DESTAQUE',
-              EXTENSAO: 'EXTENSAO', 
+              EXTENSAO: 'EXTENSAO',
               PESQUISA: 'PESQUISA',
               COMUNIDADE: 'COMUNIDADE',
             }}

@@ -1,5 +1,5 @@
 // hooks/usePostsSectionController.ts
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from 'react';
 
 import type { INews } from '@app/entities/News';
 import { Category } from '@app/enums/Category';

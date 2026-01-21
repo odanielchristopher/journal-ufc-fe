@@ -17,14 +17,10 @@ export class NewsService {
     category,
   }: NewsService.GetAllParams = {}) => {
     const { data } = await this.httpClient.get<IPersistenceNews[]>(
-      this.BASE_ROUTE,
+      `${this.BASE_ROUTE}/orderBy/${order}`,
       {
         params: {
           category,
-          ...(order && {
-            _sort: 'publicationDate',
-            _order: order === Order.DESC ? 'desc' : 'asc',
-          }),
         },
       },
     );

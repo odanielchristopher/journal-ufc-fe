@@ -16,7 +16,12 @@ const rolemap: Record<Role, string> = {
   EDITOR: 'Editor',
 };
 
-export function OverviewSection() {
+interface OverviewSectionProps {
+  onPosts(): void;
+  onUsers(): void;
+}
+
+export function OverviewSection({ onPosts, onUsers }: OverviewSectionProps) {
   const { user } = useAuth();
   const { users } = useUsers();
   const { news } = useNews();
@@ -37,13 +42,18 @@ export function OverviewSection() {
           </p>
 
           <div className="flex flex-wrap items-center gap-4">
-            <Button type="button" className="h-10">
+            <Button type="button" className="h-10" onClick={onPosts}>
               <Newspaper />
               Gerenciar postagens
             </Button>
 
             {user.role === Role.ADMIN && (
-              <Button type="button" variant="outline" className="h-10 bg-white">
+              <Button
+                type="button"
+                variant="outline"
+                className="h-10 bg-white"
+                onClick={onUsers}
+              >
                 <UsersIcon />
                 Gerenciar usuários
               </Button>

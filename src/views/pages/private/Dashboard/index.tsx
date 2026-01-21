@@ -6,6 +6,7 @@ import {
   Newspaper,
   Users,
 } from 'lucide-react';
+import { useState } from 'react';
 import { Link, Navigate } from 'react-router';
 
 import { Role } from '@app/enums/Role';
@@ -25,8 +26,11 @@ import { UserInfoContainer } from './components/UserInfoContainer';
 import { OverviewSection } from './OverviewSection';
 import { UsersSection } from './UserSection';
 
+type Tab = 'overview' | 'posts' | 'users';
+
 export function Dashboard() {
   const { user, signout } = useAuth();
+  const [currentTab, setCurrentTab] = useState<Tab>('overview');
 
   if (!user) return <Navigate to={routes.login} replace />;
 
@@ -62,7 +66,11 @@ export function Dashboard() {
 
       <main className="flex justify-center p-6">
         <div className="max-w-7x1 w-full space-y-6">
-          <Tabs defaultValue="overview" className="w-full space-y-6">
+          <Tabs
+            value={currentTab}
+            onValueChange={(value) => setCurrentTab(value as Tab)}
+            className="w-full space-y-6"
+          >
             <TabsList className="flex w-full max-w-full flex-wrap rounded-full bg-gray-200 p-1">
               <TabsTrigger
                 value="overview"
@@ -96,7 +104,10 @@ export function Dashboard() {
             </TabsContent>
 
             <TabsContent value="overview" className="m-0">
-              <OverviewSection />
+              <OverviewSection
+                onPosts={() => setCurrentTab('posts')}
+                onUsers={() => setCurrentTab('users')}
+              />
             </TabsContent>
 
             {user.role === Role.ADMIN && (
